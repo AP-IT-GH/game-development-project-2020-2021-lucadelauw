@@ -11,7 +11,7 @@ namespace BlockHunt.Commands
         public Vector2 speed;
         public MoveCommand()
         {
-            this.speed = new Vector2(5,5);
+            this.speed = new Vector2(5,9.99f);
         }
         public void Execute(ITransform transform, Vector2 direction)
         {

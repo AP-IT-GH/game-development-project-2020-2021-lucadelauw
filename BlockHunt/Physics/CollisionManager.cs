@@ -5,9 +5,9 @@ using System.Text;
 
 namespace BlockHunt
 {
-    class CollisionManager
+    static class CollisionManager
     {
-        public bool CheckCollision(Rectangle rect1, Rectangle rect2)
+        public static bool CheckCollision(Rectangle rect1, Rectangle rect2)
         {
             if (rect1.Intersects(rect2))
                 return true;

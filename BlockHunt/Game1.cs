@@ -15,6 +15,8 @@ namespace BlockHunt
         private Color backgroundColor;
         private Random rnd;
         private double lastcall;
+        private Camera camera;
+        private Matrix viewMatrix;
 
         private Hero hero;
         Level level;
@@ -28,6 +30,7 @@ namespace BlockHunt
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.ApplyChanges();
+            camera = new Camera();
         }
 
         protected override void Initialize()
@@ -55,7 +58,7 @@ namespace BlockHunt
 
         private void InitializeGameObject()
         {
-            hero = new Hero(texture, new KeyboardReader());
+            hero = new Hero(Content, new KeyboardReader());
         }
 
         protected override void Update(GameTime gameTime)
@@ -75,19 +78,20 @@ namespace BlockHunt
             }
 
             hero.Update(gameTime);
-
+            level.Update(hero.Position);
+            viewMatrix = camera.GetTransform();
+            camera.MoveTo(new Vector2(-hero.Position.X, -hero.Position.Y));
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(backgroundColor);
-
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, viewMatrix);
+            //_spriteBatch.Begin();
             level.DrawWorld(_spriteBatch);
             hero.Draw(_spriteBatch);
             _spriteBatch.End();
-            // TODO: Add your drawing code here
             base.Draw(gameTime);
         }
     }

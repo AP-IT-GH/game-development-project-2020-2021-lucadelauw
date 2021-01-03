@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,11 +8,11 @@ namespace BlockHunt.Animation
 {
     class AnimationFrame
     {
-        public Rectangle SourceRectangle { get; set; }
+        public Texture2D texture { get; }
 
-        public AnimationFrame(Rectangle rectangle)
+        public AnimationFrame(Texture2D texture)
         {
-            SourceRectangle = rectangle;
+            this.texture = texture;
         }
     }
 }

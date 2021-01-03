@@ -1,4 +1,5 @@
-﻿using BlockHunt.LevelDesign;
+﻿using BlockHunt.interfaces;
+using BlockHunt.LevelDesign;
 using BlockHunt.LevelDesign.Background;
 using LevelDesign.World;
 using Microsoft.Xna.Framework;
@@ -13,13 +14,14 @@ namespace LevelDesign.LevelDesign
 {
     public class Level
     {
+        public Rectangle[] CollisionBox { get; set; }
 
         private Texture2D texture_grass;
         private Texture2D texture_dirt;
         private Texture2D texture_sky;
         private Texture2D texture_rock;
 
-        private Background background;
+        private ParallaxBackground background;
 
 
         public byte[,] tileArray = new Byte[,]
@@ -67,7 +69,7 @@ namespace LevelDesign.LevelDesign
         public Level(ContentManager content)
         {
             this.content = content;
-            background = new Background(content);
+            background = new ParallaxBackground(content);
 
             InitializeContent();
         }    
@@ -109,9 +111,13 @@ namespace LevelDesign.LevelDesign
             }
         }
 
+        public void Update(Vector2 heroPosition)
+        {
+            background.Update(heroPosition);
+        }
+
         public void DrawWorld(SpriteBatch spritebatch)
         {
-            background.Update();
             background.Draw(spritebatch);
             for (int x = 0; x < 33; x++)
             {

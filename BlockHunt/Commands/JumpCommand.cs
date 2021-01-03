@@ -6,12 +6,13 @@ using System.Text;
 
 namespace BlockHunt.Commands
 {
-    class MoveCommand : IGameCommand
+    class JumpCommand : IGameCommand
     {
         public Vector2 speed;
-        public MoveCommand()
+
+        public JumpCommand()
         {
-            this.speed = new Vector2(5,5);
+            this.speed = new Vector2(5, 5);
         }
         public void Execute(ITransform transform, Vector2 direction)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BlockHunt.interfaces;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace LevelDesign.World
 {
     public class Blok
     {
+        public Point CollisionBox { get; set; } = new Point(32, 32);
         public Texture2D _texture { get; set; }
         public Vector2 Positie { get; set; }
         public Rectangle DestinationRectangle { get; set; }

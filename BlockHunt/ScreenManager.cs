@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LevelDesign.LevelDesign
+namespace BlockHunt
 {
-    class Class1
+    class ScreenManager
     {
     }
 }

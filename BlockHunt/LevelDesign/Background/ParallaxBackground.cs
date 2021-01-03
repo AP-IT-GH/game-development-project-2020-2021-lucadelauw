@@ -8,7 +8,7 @@ using BlockHunt.LevelDesign.Background;
 
 namespace BlockHunt.LevelDesign.Background
 {
-    public class Background : IBackground
+    public class ParallaxBackground : IBackground
     {
         private ContentManager content;
 
@@ -22,7 +22,7 @@ namespace BlockHunt.LevelDesign.Background
         private BackgroundLayer[,] layers;
 
 
-        public Background(ContentManager content)
+        public ParallaxBackground(ContentManager content)
         {
             this.content = content;
             sourceRectangle = new Rectangle(0, 0, 1920, 1080);
@@ -49,13 +49,34 @@ namespace BlockHunt.LevelDesign.Background
             }
         }
 
-        public void Update()
+        public void Update(Vector2 heroPosition)
         {
-            for (int i = 0; i < layers.GetLength(0); i++)
-            {
-                layers[i, 0].positionRectangle = new Rectangle(-500, 0, 1920, 1080);
-                layers[i, 1].positionRectangle = new Rectangle(layers[i, 0].positionRectangle.X + layers[i, 0].positionRectangle.Width, 0, 1920, 1080);
-            }
+            layers[0, 0].positionRectangle = new Rectangle((int)heroPosition.X - 960, 0, 1920, 1080);
+            layers[1, 1].positionRectangle = new Rectangle(layers[0, 0].positionRectangle.X + layers[0, 0].positionRectangle.Width, 0, 1920, 1080);
+
+            int pos1 = (int)(heroPosition.X / 2);
+            while (pos1 < heroPosition.X - 2880)
+                pos1 = pos1 + 1920;
+            layers[1, 0].positionRectangle = new Rectangle(pos1, 0, 1920, 1080);
+            layers[1, 1].positionRectangle = new Rectangle(layers[1, 0].positionRectangle.X + layers[1, 0].positionRectangle.Width, 0, 1920, 1080);
+
+            int pos2 = (int)(heroPosition.X / 4);
+            while (pos2 < heroPosition.X - 2880)
+                pos2 = pos2 + 1920;
+            layers[2, 0].positionRectangle = new Rectangle(pos2, 0, 1920, 1080);
+            layers[2, 1].positionRectangle = new Rectangle(layers[2, 0].positionRectangle.X + layers[2, 0].positionRectangle.Width, 0, 1920, 1080);
+
+            int pos3 = (int)(heroPosition.X / 8);
+            while (pos3 < heroPosition.X - 2880)
+                pos3 = pos3 + 1920;
+            layers[3, 0].positionRectangle = new Rectangle(pos3, 0, 1920, 1080);
+            layers[3, 1].positionRectangle = new Rectangle(layers[3, 0].positionRectangle.X + layers[3, 0].positionRectangle.Width, 0, 1920, 1080);
+
+            int pos4 = (int)(heroPosition.X / 16);
+            while (pos4 < heroPosition.X - 2880)
+                pos4 = pos4 + 1920;
+            layers[4, 0].positionRectangle = new Rectangle(pos4, 0, 1920, 1080);
+            layers[4, 1].positionRectangle = new Rectangle(layers[4, 0].positionRectangle.X + layers[4, 0].positionRectangle.Width, 0, 1920, 1080);
         }
 
         public void Draw(SpriteBatch spriteBatch)

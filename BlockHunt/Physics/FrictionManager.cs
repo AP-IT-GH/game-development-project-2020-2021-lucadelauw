@@ -6,11 +6,11 @@ using System.Text;
 
 namespace BlockHunt.Physics
 {
-    public static class FrictionManager
+    public class FrictionManager : IPhysicComponent
     {
-        public static Vector2 Friction { get; set; } = new Vector2(1, 1);
+        public static Vector2 Friction { get; set; } = new Vector2(1.02f, 1.02f);
 
-        public static void ApplyFriction(ITransform transform)
+        public void ApplyPhysic(ITransform transform)
         {
             float accX = transform.Acceleration.X;
             float accY = transform.Acceleration.Y;

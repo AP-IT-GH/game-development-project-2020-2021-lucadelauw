@@ -10,25 +10,25 @@ using BlockHunt.Input;
 using BlockHunt.Commands;
 using Microsoft.Xna.Framework.Content;
 using BlockHunt.Physics;
+using LevelDesign.World;
+using BlockHunt.World;
 
 namespace BlockHunt
 {
-    public class Hero : IGameObject, ITransform, ICollision
+    public class Hero : IGameObject, IPhysicsObject
     {
         private ContentManager content;
         private HeroAnimation animation;
         private IInputReader inputReader;
+        private PhysicsManager phyma;
 
         public float Scale { get; set; } = 0.50f;
 
-        // ITransform
+        // IPhysicsObject
         public Vector2 Position { get; set; } = new Vector2(0, 0);
         public Vector2 PrevPosition { get; set; } = new Vector2(0, 0);
         public Vector2 Acceleration { get; set; } = new Vector2(0, 0);
         public Vector2 Velocity { get; set; } = new Vector2(0, 0);
-
-
-        // ICollision
         public Rectangle CollisionBox { get; set; }
 
         public Hero(ContentManager content, IInputReader reader)
@@ -36,9 +36,10 @@ namespace BlockHunt
             this.content = content;
             animation = new HeroAnimation(content);
 
-            Rectangle CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
+            CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
 
             inputReader = reader;
+            phyma = new PhysicsManager(new List<IPhysicComponent>() { new GravityManager(), new FrictionManager() });
         }
 
         public void Update(GameTime gameTime)
@@ -48,20 +49,24 @@ namespace BlockHunt
             foreach (IGameCommand command in commands)
                 command.Execute(this);
             PrevPosition = Position;
-            // Add gravity to the acceleration
-            GravityManager.ApplyGravity(this);
 
-            // Subtract the friction
-            FrictionManager.ApplyFriction(this);
+            // Apply the physics (Gravity and Friction)
+            phyma.ApplyPhysics(this);
 
             // Accelerate the velocity
             Velocity = Acceleration;
 
-            // Create a temporary collisionbox simulating the next position
-            Rectangle CollisionBox = new Rectangle((int)(Position.X + Velocity.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
+            // Create the new collisionbox for the next position
+            System.Diagnostics.Debug.WriteLine((int)(Position.X + Velocity.X) + "   " + (int)(Position.Y + Velocity.Y) + "   " + (int)(319 * Scale) + "   " + (int)(486 * Scale));
+            CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
 
             // Check if the next position will collide with the barrier
             Rectangle barrier = new Rectangle(-30000, 910, 60000, 30000);
+            Barrier _barrier = new Barrier(barrier);
+
+            Move.ExecuteMove(this, _barrier);
+
+            /*
             var collision = CollisionManager.CheckCollision(CollisionBox, barrier);
             if (collision.intersect)
             {
@@ -71,18 +76,22 @@ namespace BlockHunt
                 if ((Velocity.X > 0 && CollisionManager.IsTouchingLeft(CollisionBox, barrier)) ||
                     (Velocity.X < 0 && CollisionManager.IsTouchingRight(CollisionBox, barrier)))
                 {
+                    // If collision on X-axis; set horizontal velocity to 0.
                     Velocity = new Vector2(0, Velocity.Y);
                 }
 
                 if ((Velocity.Y > 0 && CollisionManager.IsTouchingTop(CollisionBox, barrier)) ||
                     (Velocity.Y < 0 && CollisionManager.IsTouchingBottom(CollisionBox, barrier)))
                 {
+                    if (Velocity.Y > 0 && CollisionManager.IsTouchingTop(CollisionBox, barrier))
+                        Position = new Vector2(Position.X, barrier.Top - CollisionBox.Height + 1);
+                    if (Velocity.Y < 0 && CollisionManager.IsTouchingBottom(CollisionBox, barrier))
+                        Position = new Vector2(Position.X, barrier.Bottom - CollisionBox.Height - 1);
+                    // If collision on Y-Axis; set vertical velocity to 0.
                     Velocity = new Vector2(Velocity.X, 0);
                 }
 
-            }
-
-            Position += Velocity;
+            }*/
 
             // Update the animation
             animation.Update(gameTime, Position);

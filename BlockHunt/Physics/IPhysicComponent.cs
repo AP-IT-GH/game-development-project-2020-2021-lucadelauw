@@ -5,9 +5,9 @@ using System.Text;
 
 namespace BlockHunt.Physics
 {
-    public static interface IPhysicComponent
+    public interface IPhysicComponent
     {
-        public static void ApplyPhysic(ITransform transform)
+        public void ApplyPhysic(ITransform transform)
         {
 
         }

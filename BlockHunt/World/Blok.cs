@@ -7,23 +7,24 @@ using System.Text;
 
 namespace LevelDesign.World
 {
-    public class Blok
+    public class Blok : ICollision
     {
-        public Point CollisionBox { get; set; } = new Point(32, 32);
+        public Rectangle CollisionBox { get; set; }
         public Texture2D _texture { get; set; }
-        public Vector2 Positie { get; set; }
+        public Vector2 Position { get; set; }
         public Rectangle DestinationRectangle { get; set; }
 
         public Blok(Texture2D texture, Vector2 pos, Rectangle destinationRectangle)
         {
             _texture = texture;
-            Positie = pos;
+            Position = pos;
+            CollisionBox = new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
             DestinationRectangle = destinationRectangle;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Positie, DestinationRectangle, Color.AliceBlue);
+            spriteBatch.Draw(_texture, Position, DestinationRectangle, Color.AliceBlue);
         }
     }
 }

@@ -13,15 +13,15 @@ namespace BlockHunt.Commands
         {
             snelheid = new Vector2(1, 0);
         }
-        public void Execute(ITransform transform, Vector2 direction)
+        public void Execute(ITransform transform)
         {
-            direction = Vector2.Add(direction, -transform.Position);
+            /*direction = Vector2.Add(direction, -transform.Position);
             direction.Normalize();
             direction = Vector2.Multiply(direction, 0.1f);
 
             snelheid += direction;
             snelheid = Limit(snelheid, 6);
-            transform.Position += snelheid;
+            transform.Position += snelheid;*/
         }
         private Vector2 Limit(Vector2 v, float max)
         {

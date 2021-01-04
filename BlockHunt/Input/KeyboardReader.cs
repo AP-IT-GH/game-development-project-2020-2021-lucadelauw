@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BlockHunt.Commands;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,17 @@ namespace BlockHunt.Input
 {
     class KeyboardReader : IInputReader
     {
-        public Vector2 ReadInput()
+        public List<IGameCommand> ReadInput()
         {
-            var direction = Vector2.Zero;
+            List<IGameCommand> commands = new List<IGameCommand> { };
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(Keys.Left))
-                direction = new Vector2(-1, 0);
+                commands.Add(new MoveCommand(Direction.Left));
             if (state.IsKeyDown(Keys.Right))
-                direction = new Vector2(1, 0);
+                commands.Add(new MoveCommand(Direction.Right));
             if (state.IsKeyDown(Keys.Up))
-                direction = new Vector2(direction.X, -1);
-
-            return direction;
+                commands.Add(new JumpCommand());
+            return commands;
         }
     }
 }

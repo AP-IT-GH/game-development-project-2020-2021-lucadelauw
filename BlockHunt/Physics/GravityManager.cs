@@ -6,17 +6,13 @@ using System.Text;
 
 namespace BlockHunt.Physics
 {
-    static class GravityManager
+    static class GravityManager : IPhysicComponent
     {
-        public static Vector2 Gravity { get; set; } = new Vector2(0, 0.05f);
-        private static readonly Vector2 gravityMaxAcceleration = new Vector2(0, 0.5f);
+        public static Vector2 Gravity { get; set; } = new Vector2(0, 1.99f);
 
-        public static void ApplyGravity(ITransform obj)
+        public static void ApplyPhysic(ITransform transform)
         {
-            obj.Acceleration += Gravity;
-
-            if (obj.Acceleration.Y > gravityMaxAcceleration.Y)
-                obj.Acceleration = gravityMaxAcceleration;
+            transform.Acceleration = new Vector2(transform.Acceleration.X, transform.Acceleration.Y + Gravity.Y);
         }
     }
 }

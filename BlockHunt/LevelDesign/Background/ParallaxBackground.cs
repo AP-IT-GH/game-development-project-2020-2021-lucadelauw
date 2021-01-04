@@ -51,8 +51,8 @@ namespace BlockHunt.LevelDesign.Background
 
         public void Update(Vector2 heroPosition)
         {
-            layers[0, 0].positionRectangle = new Rectangle((int)heroPosition.X - 960, 0, 1920, 1080);
-            layers[1, 1].positionRectangle = new Rectangle(layers[0, 0].positionRectangle.X + layers[0, 0].positionRectangle.Width, 0, 1920, 1080);
+            layers[0, 0].positionRectangle = new Rectangle((int)(heroPosition.X - 960), 0, 1920, 1080);
+            layers[0, 1].positionRectangle = new Rectangle(layers[0, 0].positionRectangle.X + layers[0, 0].positionRectangle.Width, 0, 1920, 1080);
 
             int pos1 = (int)(heroPosition.X / 2);
             while (pos1 < heroPosition.X - 2880)
@@ -66,7 +66,7 @@ namespace BlockHunt.LevelDesign.Background
             layers[2, 0].positionRectangle = new Rectangle(pos2, 0, 1920, 1080);
             layers[2, 1].positionRectangle = new Rectangle(layers[2, 0].positionRectangle.X + layers[2, 0].positionRectangle.Width, 0, 1920, 1080);
 
-            int pos3 = (int)(heroPosition.X / 8);
+            int pos3 = (int)(heroPosition.X / 16);
             while (pos3 < heroPosition.X - 2880)
                 pos3 = pos3 + 1920;
             layers[3, 0].positionRectangle = new Rectangle(pos3, 0, 1920, 1080);

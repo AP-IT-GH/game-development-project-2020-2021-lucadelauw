@@ -13,19 +13,19 @@ using BlockHunt.Physics;
 
 namespace BlockHunt
 {
-    public class Hero:IGameObject,ITransform,ICollision
+    public class Hero : IGameObject, ITransform, ICollision
     {
         private ContentManager content;
         private HeroAnimation animation;
         private IInputReader inputReader;
-        private IGameCommand moveCommand;
 
         public float Scale { get; set; } = 0.50f;
 
         // ITransform
-        public Vector2 Position { get; set; }
-        public Vector2 Acceleration { get; set; }
-        public Vector2 Velocity { get; set; }
+        public Vector2 Position { get; set; } = new Vector2(0, 0);
+        public Vector2 PrevPosition { get; set; } = new Vector2(0, 0);
+        public Vector2 Acceleration { get; set; } = new Vector2(0, 0);
+        public Vector2 Velocity { get; set; } = new Vector2(0, 0);
 
 
         // ICollision
@@ -36,32 +36,56 @@ namespace BlockHunt
             this.content = content;
             animation = new HeroAnimation(content);
 
-            Velocity = new Vector2(1, 1);
-            Acceleration = new Vector2(1f, 1f);
+            Rectangle CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
 
             inputReader = reader;
-
-            moveCommand = new MoveCommand();
         }
 
         public void Update(GameTime gameTime)
         {
-            var direction = inputReader.ReadInput();
-            Move(direction);
-            animation.Update(gameTime, Position);
+            // get input and excecute command(s)
+            List<IGameCommand> commands = inputReader.ReadInput();
+            foreach (IGameCommand command in commands)
+                command.Execute(this);
+            PrevPosition = Position;
+            // Add gravity to the acceleration
             GravityManager.ApplyGravity(this);
-            CollisionBox = new Rectangle((int)Position.X,(int)Position.Y,(int)(319 * Scale),(int)(486 * Scale));
 
-            Velocity += Acceleration;
-            if (!CollisionManager.CheckCollision(CollisionBox, new Rectangle(-3000, 910, 30000, 0)))
-                Position += Velocity;
-            else
-                Velocity = Vector2.Zero;
-        }
+            // Subtract the friction
+            FrictionManager.ApplyFriction(this);
 
-        private void Move(Vector2 direction)
-        {
-            moveCommand.Execute(this, direction);
+            // Accelerate the velocity
+            Velocity = Acceleration;
+
+            // Create a temporary collisionbox simulating the next position
+            Rectangle CollisionBox = new Rectangle((int)(Position.X + Velocity.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
+
+            // Check if the next position will collide with the barrier
+            Rectangle barrier = new Rectangle(-30000, 910, 60000, 30000);
+            var collision = CollisionManager.CheckCollision(CollisionBox, barrier);
+            if (collision.intersect)
+            {
+
+                // If a collision is detected:
+                // Determine whether the collision is on the X-axis, Y-axis or both
+                if ((Velocity.X > 0 && CollisionManager.IsTouchingLeft(CollisionBox, barrier)) ||
+                    (Velocity.X < 0 && CollisionManager.IsTouchingRight(CollisionBox, barrier)))
+                {
+                    Velocity = new Vector2(0, Velocity.Y);
+                }
+
+                if ((Velocity.Y > 0 && CollisionManager.IsTouchingTop(CollisionBox, barrier)) ||
+                    (Velocity.Y < 0 && CollisionManager.IsTouchingBottom(CollisionBox, barrier)))
+                {
+                    Velocity = new Vector2(Velocity.X, 0);
+                }
+
+            }
+
+            Position += Velocity;
+
+            // Update the animation
+            animation.Update(gameTime, Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)

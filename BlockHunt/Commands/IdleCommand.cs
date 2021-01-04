@@ -1,13 +1,14 @@
 ﻿using BlockHunt.interfaces;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BlockHunt.Commands
 {
-    public interface IGameCommand
+    class IdleCommand : IGameCommand
     {
-        void Execute(ITransform transform);
+        public void Execute(ITransform transform)
+        {
+        }
     }
 }

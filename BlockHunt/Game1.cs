@@ -26,7 +26,7 @@ namespace BlockHunt
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
-            _graphics.ToggleFullScreen();
+            //_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.ApplyChanges();
@@ -76,11 +76,10 @@ namespace BlockHunt
 
                 lastcall = gameTime.TotalGameTime.TotalMilliseconds;
             }
-
             hero.Update(gameTime);
             level.Update(hero.Position);
-            viewMatrix = camera.GetTransform();
             camera.MoveTo(new Vector2(-hero.Position.X, -hero.Position.Y));
+            viewMatrix = camera.GetTransform();
             base.Update(gameTime);
         }
 
@@ -91,6 +90,9 @@ namespace BlockHunt
             //_spriteBatch.Begin();
             level.DrawWorld(_spriteBatch);
             hero.Draw(_spriteBatch);
+            Texture2D dummyTexture = new Texture2D(GraphicsDevice, 1, 1);
+            dummyTexture.SetData(new Color[] { Color.White });
+            _spriteBatch.Draw(dummyTexture, new Rectangle(-30000, 910, 60000, 30000), Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

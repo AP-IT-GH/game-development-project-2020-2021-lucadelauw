@@ -6,17 +6,32 @@ using System.Text;
 
 namespace BlockHunt.Commands
 {
+    enum Direction
+    {
+        Left,
+        Right
+    }
     class MoveCommand : IGameCommand
     {
         public Vector2 speed;
-        public MoveCommand()
+        private Vector2 direction;
+        public MoveCommand(Direction direction)
         {
-            this.speed = new Vector2(5,9.99f);
+            this.speed = new Vector2(9,0);
+            switch (direction)
+            {
+                case Direction.Left:
+                    this.direction = new Vector2(-1, 0);
+                    break;
+
+                case Direction.Right:
+                    this.direction = new Vector2(1, 0);
+                    break;
+            }
         }
-        public void Execute(ITransform transform, Vector2 direction)
+        public void Execute(ITransform transform)
         {
-            direction *= speed;
-            transform.Position += direction;
+            transform.Acceleration = new Vector2(direction.X * speed.X, transform.Acceleration.Y);
         }
     }
 }

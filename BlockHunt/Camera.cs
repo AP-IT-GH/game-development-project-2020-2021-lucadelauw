@@ -21,6 +21,7 @@ namespace BlockHunt
 
         public void MoveTo(Vector2 position)
         {
+            if(position.X <= -960)
             Position = new Vector2(position.X + 960,0);
         }
 

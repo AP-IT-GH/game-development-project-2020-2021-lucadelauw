@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using BlockHunt.LevelDesign.Background;
 
-namespace BlockHunt.LevelDesign.Background
+namespace BlockHunt.Level.Background
 {
     public class ParallaxBackground : IBackground
     {

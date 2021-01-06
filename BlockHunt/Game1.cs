@@ -49,7 +49,6 @@ namespace BlockHunt
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            texture = Content.Load<Texture2D>("hero");
 
             InitializeGameObject();
             // TODO: use this.Content to load your game content here
@@ -65,6 +64,9 @@ namespace BlockHunt
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.R))
+                hero.SetHeroPosition(new Vector2(400, 600));
 
             // TODO: Add your update logic here
             if (gameTime.TotalGameTime.TotalMilliseconds > lastcall + 500)
@@ -90,9 +92,9 @@ namespace BlockHunt
             //_spriteBatch.Begin();
             level.DrawWorld(_spriteBatch);
             hero.Draw(_spriteBatch);
-            Texture2D dummyTexture = new Texture2D(GraphicsDevice, 1, 1);
+            /*Texture2D dummyTexture = new Texture2D(GraphicsDevice, 1, 1);
             dummyTexture.SetData(new Color[] { Color.White });
-            _spriteBatch.Draw(dummyTexture, new Rectangle(-30000, 910, 60000, 30000), Color.White);
+            _spriteBatch.Draw(dummyTexture, new Rectangle(-30000, 910, 60000, 30000), Color.White);*/
             _spriteBatch.End();
             base.Draw(gameTime);
         }

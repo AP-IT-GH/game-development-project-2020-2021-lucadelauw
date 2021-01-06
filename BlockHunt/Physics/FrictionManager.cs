@@ -8,23 +8,23 @@ namespace BlockHunt.Physics
 {
     public class FrictionManager : IPhysicComponent
     {
-        public static Vector2 Friction { get; set; } = new Vector2(1.02f, 1.02f);
+        public static Vector2 Friction { get; set; } = new Vector2(20.59f, 20.59f);
 
         public void ApplyPhysic(ITransform transform)
         {
             float accX = transform.Acceleration.X;
             float accY = transform.Acceleration.Y;
 
-            if (accX > 1)
+            if (accX > Friction.X)
                 accX -= Friction.X;
-            else if (accX < -1)
+            else if (accX < -Friction.X)
                 accX += Friction.X;
             else
                 accX = 0;
 
-            if (accY > 1)
+            if (accY > Friction.Y)
                 accY -= Friction.Y;
-            else if (accY < -1)
+            else if (accY < -Friction.Y)
                 accY += Friction.Y;
             else
                 accY = 0;

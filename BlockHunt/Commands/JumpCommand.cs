@@ -14,12 +14,11 @@ namespace BlockHunt.Commands
 
         public JumpCommand()
         {
-            this.speed = new Vector2(0, 49.33f);
+            this.speed = new Vector2(0, 1123.58f);
             direction = new Vector2(0, -1);
         }
         public void Execute(ITransform transform)
         {
-            System.Diagnostics.Debug.WriteLine("prevpos: " + prevPosition.Y + "           pos: " + transform.Position.Y);
             if (transform.Position.Y == transform.PrevPosition.Y)
             transform.Acceleration = new Vector2(transform.Acceleration.X,(speed.Y * direction.Y));
 

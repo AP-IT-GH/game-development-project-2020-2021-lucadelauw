@@ -8,7 +8,7 @@ namespace BlockHunt.Physics
 {
     class GravityManager : IPhysicComponent
     {
-        public static Vector2 Gravity { get; set; } = new Vector2(0, 2.49f);
+        public static Vector2 Gravity { get; set; } = new Vector2(0, 30.56f);
 
         public void ApplyPhysic(ITransform transform)
         {

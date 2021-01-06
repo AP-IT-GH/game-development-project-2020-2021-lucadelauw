@@ -17,7 +17,7 @@ namespace BlockHunt.Commands
         private Vector2 direction;
         public MoveCommand(Direction direction)
         {
-            this.speed = new Vector2(9,0);
+            this.speed = new Vector2(200f,0);
             switch (direction)
             {
                 case Direction.Left:

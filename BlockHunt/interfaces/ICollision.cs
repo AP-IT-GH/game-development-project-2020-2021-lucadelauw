@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlockHunt.interfaces
 {
-    interface ICollision
+    public interface ICollision
     {
         public Rectangle CollisionBox { get; set; }
     }

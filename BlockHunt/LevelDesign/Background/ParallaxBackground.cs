@@ -66,7 +66,7 @@ namespace BlockHunt.LevelDesign.Background
             layers[2, 0].positionRectangle = new Rectangle(pos2, 0, 1920, 1080);
             layers[2, 1].positionRectangle = new Rectangle(layers[2, 0].positionRectangle.X + layers[2, 0].positionRectangle.Width, 0, 1920, 1080);
 
-            int pos3 = (int)(heroPosition.X / 16);
+            int pos3 = (int)(heroPosition.X / 8);
             while (pos3 < heroPosition.X - 2880)
                 pos3 = pos3 + 1920;
             layers[3, 0].positionRectangle = new Rectangle(pos3, 0, 1920, 1080);

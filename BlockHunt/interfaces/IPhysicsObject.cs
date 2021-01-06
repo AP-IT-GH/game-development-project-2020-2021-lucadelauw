@@ -4,7 +4,8 @@ using System.Text;
 
 namespace BlockHunt.interfaces
 {
-    interface IPhysicsObject : ITransform, ICollision
+    public interface IPhysicsObject : ITransform, ICollision
     {
+        public ICollision[] Contact { get; set; }
     }
 }

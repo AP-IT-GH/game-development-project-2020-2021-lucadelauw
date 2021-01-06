@@ -111,7 +111,7 @@ namespace BlockHunt.Physics
             if (DynamicRectVsRect(obj, fTimeStep, collision, ref contact_point, ref contact_normal, ref contact_time))
             {
                 //System.Diagnostics.Debug.WriteLine(System.DateTime.Now.Ticks.ToString() + "COLLISION");
-                /*if (contact_normal.Y > 0)
+                if (contact_normal.Y > 0)
                 {
                     obj.Contact[0] = collision;
                 }
@@ -134,7 +134,7 @@ namespace BlockHunt.Physics
                 {
                     obj.Contact[3] = collision;
                 }
-                else obj.Contact[3] = null;*/
+                else obj.Contact[3] = null;
 
                 obj.Velocity += contact_normal * new Vector2(Math.Abs(obj.Velocity.X), Math.Abs(obj.Velocity.Y)) * (1 - contact_time);
                 return true;

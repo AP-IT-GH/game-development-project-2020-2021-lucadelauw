@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LevelDesign.World
+namespace Level.World
 {
     public class Blok : ICollision
     {

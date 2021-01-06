@@ -685,6 +685,9 @@
 /processorParam:TextureFormat=Color
 /build:Hero/Slide__009.png
 
+#begin World/Level1/world.csv
+/copy:World/Level1/world.csv
+
 #begin WorldObjects/dirtBlock.png
 /importer:TextureImporter
 /processor:TextureProcessor

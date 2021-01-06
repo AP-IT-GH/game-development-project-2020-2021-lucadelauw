@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlockHunt.LevelDesign.Background
+namespace BlockHunt.Level.Background
 {
     public interface IBackground
     {

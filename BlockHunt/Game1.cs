@@ -1,5 +1,5 @@
 ﻿using BlockHunt.Input;
-using LevelDesign.LevelDesign;
+using BlockHunt.Level;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +19,7 @@ namespace BlockHunt
         private Matrix viewMatrix;
 
         private Hero hero;
-        Level level;
+        LevelManager level;
 
         public Game1()
         {
@@ -40,8 +40,12 @@ namespace BlockHunt
             rnd = new Random();
             lastcall = 0;
 
-            level = new Level(Content);
+            level = new LevelManager(Content,new CsvReader(ILevelReader.LEVEL1), new Level.Background.ParallaxBackground(Content));
             level.CreateWorld();
+
+            //CsvReader read = new CsvReader(ILevelReader.LEVEL1);
+            //read.GetLevel();
+
 
             base.Initialize();
         }
@@ -51,8 +55,6 @@ namespace BlockHunt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             InitializeGameObject();
-            // TODO: use this.Content to load your game content here
-
         }
 
         private void InitializeGameObject()

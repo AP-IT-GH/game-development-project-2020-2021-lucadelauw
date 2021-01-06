@@ -14,9 +14,15 @@ namespace BlockHunt.Input
             List<IGameCommand> commands = new List<IGameCommand> { };
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(Keys.Left))
-                commands.Add(new MoveCommand(Direction.Left));
+                if (state.IsKeyDown(Keys.Down))
+                    commands.Add(new SlideCommand());
+                else
+                    commands.Add(new MoveCommand(Direction.Left));
             if (state.IsKeyDown(Keys.Right))
-                commands.Add(new MoveCommand(Direction.Right));
+                if (state.IsKeyDown(Keys.Down))
+                    commands.Add(new SlideCommand());
+                else
+                    commands.Add(new MoveCommand(Direction.Right));
             if (state.IsKeyDown(Keys.Up))
                 commands.Add(new JumpCommand());
             return commands;

@@ -1,5 +1,5 @@
 ﻿using BlockHunt.interfaces;
-using LevelDesign.LevelDesign;
+using BlockHunt.Level;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ namespace BlockHunt.Physics
             Vector2 cn = Vector2.Zero;
             float ct = 0, min_t = float.PositiveInfinity;
             List<Tuple<int, float>> z = new List<Tuple<int, float>>();
-            for (int i = 0; i < Level.CollisionBoxes.Count; i++)
+            for (int i = 0; i < LevelManager.CollisionBoxes.Count; i++)
             {
-                if (CollsionDetector.DynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, Level.CollisionBoxes[i], ref cp, ref cn, ref ct))
+                if (CollsionDetector.DynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, LevelManager.CollisionBoxes[i], ref cp, ref cn, ref ct))
                 {
                     z.Add(new Tuple<int, float>(i, ct));
                 }
@@ -27,11 +27,10 @@ namespace BlockHunt.Physics
 
             foreach (Tuple<int, float> j in z)
             {
-                CollsionDetector.ResolveDynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, Level.CollisionBoxes[j.Item1]);
+                CollsionDetector.ResolveDynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, LevelManager.CollisionBoxes[j.Item1]);
             }
 
             obj.Position += obj.Velocity * new Vector2((float)gameTime.ElapsedGameTime.TotalSeconds, (float)gameTime.ElapsedGameTime.TotalSeconds);
-            //obj.Velocity = Vector2.Zero;
         }
     }
 }

@@ -1,17 +1,12 @@
 ﻿using BlockHunt.interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using BlockHunt.Animation;
-using Microsoft.Xna.Framework.Input;
 using BlockHunt.Input;
 using BlockHunt.Commands;
 using Microsoft.Xna.Framework.Content;
 using BlockHunt.Physics;
-using LevelDesign.World;
-using BlockHunt.World;
 
 namespace BlockHunt
 {
@@ -22,7 +17,7 @@ namespace BlockHunt
         private IInputReader inputReader;
         private PhysicsManager phyma;
 
-        public float Scale { get; set; } = 0.50f;
+        public float Scale { get; set; } = 0.25f;
 
         // IPhysicsObject
         public Vector2 Position { get; set; } = new Vector2(0, 0);
@@ -40,7 +35,7 @@ namespace BlockHunt
             CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
 
             inputReader = reader;
-            phyma = new PhysicsManager(new List<IPhysicComponent>() { /*new FrictionManager(),*/ new GravityManager() });
+            phyma = new PhysicsManager(new List<IPhysicComponent>() { new FrictionManager(), new GravityManager() });
         }
 
         public void Update(GameTime gameTime)
@@ -64,8 +59,6 @@ namespace BlockHunt
 
             CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
 
-            //System.Diagnostics.Debug.WriteLine(Position.Y);
-            System.Diagnostics.Debug.WriteLine(Position.X);
             animation.Update(gameTime, Position);
         }
 

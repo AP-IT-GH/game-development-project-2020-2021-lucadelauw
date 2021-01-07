@@ -25,6 +25,10 @@ namespace BlockHunt.Input
                     commands.Add(new MoveCommand(Direction.Right));
             if (state.IsKeyDown(Keys.Up))
                 commands.Add(new JumpCommand());
+            if (state.IsKeyDown(Keys.R))
+                commands.Add(new ResetCommand());
+            if (state.IsKeyDown(Keys.F))
+                commands.Add(new PlaceCommand());
             return commands;
         }
     }

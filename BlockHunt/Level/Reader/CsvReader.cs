@@ -18,7 +18,7 @@ namespace BlockHunt.Level
 
         public byte[,] GetLevel()
         {
-            byte[,] byteField = new byte[33, 84];
+            byte[,] byteField = new byte[15, 394];
             using (TextFieldParser csvParser = new TextFieldParser(file))
             {
                 csvParser.CommentTokens = new string[] { "#" };

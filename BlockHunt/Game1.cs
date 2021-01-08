@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace BlockHunt
 {
@@ -58,9 +59,23 @@ namespace BlockHunt
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
             var placingRectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
             placingRectangleTexture .SetData(new[] { Color.White });
-            hud = new HUD(placingRectangleTexture);
+
+            Texture2D[] zeroToNine = new Texture2D[10];
+            string path = "UserInterface/HUD/";
+            zeroToNine[0]= Content.Load<Texture2D>(path + "hud_0");
+            zeroToNine[1]= Content.Load<Texture2D>(path + "hud_1");
+            zeroToNine[2]= Content.Load<Texture2D>(path + "hud_2");
+            zeroToNine[3]= Content.Load<Texture2D>(path + "hud_3");
+            zeroToNine[4]= Content.Load<Texture2D>(path + "hud_4");
+            zeroToNine[5]= Content.Load<Texture2D>(path + "hud_5");
+            zeroToNine[6]= Content.Load<Texture2D>(path + "hud_6");
+            zeroToNine[7]= Content.Load<Texture2D>(path + "hud_7");
+            zeroToNine[8]= Content.Load<Texture2D>(path + "hud_8");
+            zeroToNine[9]= Content.Load<Texture2D>(path + "hud_9");
+            hud = new HUD(placingRectangleTexture, zeroToNine);
 
             InitializeGameObject();
         }

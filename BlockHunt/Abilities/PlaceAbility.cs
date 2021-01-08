@@ -41,6 +41,7 @@ namespace BlockHunt.Abilities
                 if (Level.LevelManager.RemoveBlock())
                     amountOfBlocks++;
             }
+            HUD.AmountOfBlocks(amountOfBlocks);
         }
     }
 }

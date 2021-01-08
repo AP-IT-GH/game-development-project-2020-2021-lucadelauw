@@ -17,7 +17,8 @@ namespace BlockHunt.UserInterface
         private Texture2D[] zeroToNine;
         private static byte blockCount;
 
-        public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(0, 0, 26, 37);
+        public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(1900, 20, 26, 37);
+        public static float AmountOfBlockNumberScale { get; set; } = 1.5f;
 
         public HUD(Texture2D placingRectangleTexture, Texture2D[] zeroToNine)
         {
@@ -46,7 +47,8 @@ namespace BlockHunt.UserInterface
             }
 
             // Amount of placeable blocks number 
-            spriteBatch.Draw(zeroToNine[blockCount], new Rectangle(1920 - AmountOfBlockNumberRectangle.Width, 0, AmountOfBlockNumberRectangle.Width, AmountOfBlockNumberRectangle.Height), Color.White);
+            Vector2 transformedPosition = Camera.Inverse(new Vector2(AmountOfBlockNumberRectangle.X - AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale, AmountOfBlockNumberRectangle.Y));
+            spriteBatch.Draw(zeroToNine[blockCount], new Rectangle((int)transformedPosition.X, (int)transformedPosition.Y, (int)(AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale), (int)(AmountOfBlockNumberRectangle.Height * AmountOfBlockNumberScale)), Color.White);
         }
 
         public static void AmountOfBlocks(byte amountOfBlocks)

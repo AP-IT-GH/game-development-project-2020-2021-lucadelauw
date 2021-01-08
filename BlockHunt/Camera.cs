@@ -12,6 +12,7 @@ namespace BlockHunt
         private Vector2 Position { get; set; }
         private float Rotation { get; set; }
         private Vector2 Origin { get; set; }
+        public static Matrix CameraMatrix { get; private set; }
         public Camera()
         {
             Zoom = 1;
@@ -33,7 +34,13 @@ namespace BlockHunt
             var scaleMatrix = Matrix.CreateScale(new Vector3(Zoom, Zoom, 1));
             var originMatrix = Matrix.CreateTranslation(new Vector3(Origin.X, Origin.Y, 0));
 
-            return translationMatrix * rotationMatrix * scaleMatrix * originMatrix;
+            CameraMatrix = translationMatrix * rotationMatrix * scaleMatrix * originMatrix;
+            return CameraMatrix;
+        }
+
+        public static Vector2 Inverse(Vector2 location)
+        {
+            return Vector2.Transform(location, Matrix.Invert(CameraMatrix));
         }
     }
 }

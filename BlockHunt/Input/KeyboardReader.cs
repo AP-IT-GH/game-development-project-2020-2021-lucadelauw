@@ -41,7 +41,7 @@ namespace BlockHunt.Input
                 placeToggle = true;
                 if (state.IsKeyUp(Keys.F))
                 {
-                    abilities.Add(new PlaceAbility(PlaceAbility.Toggle));
+                    abilities.Add(new PlaceAbility(PlaceAbility.Action.Toggle));
                     placeToggle = false;
                 }
             }

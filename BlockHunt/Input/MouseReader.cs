@@ -17,6 +17,7 @@ namespace BlockHunt.Input
         public static Vector2 TransformedGridPosition { get; private set; }
 
         private static bool placeToggle = false;
+        private static bool removeToggle = false;
 
         public static void Update(GameTime gameTime)
         {
@@ -43,8 +44,17 @@ namespace BlockHunt.Input
                 placeToggle = true;
                 if (mouse.LeftButton == ButtonState.Released)
                 {
-                    abilities.Add(new PlaceAbility(PlaceAbility.Trigger));
+                    abilities.Add(new PlaceAbility(PlaceAbility.Action.Place));
                     placeToggle = false;
+                }
+            }
+            if (mouse.RightButton == ButtonState.Pressed || removeToggle)
+            {
+                removeToggle = true;
+                if (mouse.RightButton == ButtonState.Released)
+                {
+                    abilities.Add(new PlaceAbility(PlaceAbility.Action.Remove));
+                    removeToggle = false;
                 }
             }
             return abilities;

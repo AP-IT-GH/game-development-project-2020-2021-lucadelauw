@@ -187,21 +187,32 @@ namespace BlockHunt.Level
 
         }
 
-        public static void PlaceBlock()
+        public static bool PlaceBlock()
         {
             string blockName = "dynamic";
             int index1 = (int)MouseReader.TransformedGridPosition.Y / (int)TileSize.Y;
             int index2 = (int)MouseReader.TransformedGridPosition.X / (int)TileSize.X;
             if (blockArray[index1, index2] == null)
             {
-                blockArray[index1, index2] = new Block(textures[blockName], MouseReader.TransformedGridPosition, new Rectangle(0, 0, (int)blockDefinitions[blockName].CollisionBoxSize.X, (int)blockDefinitions[blockName].CollisionBoxSize.Y));
+                Block dynamicBlock = new Block(textures[blockName], MouseReader.TransformedGridPosition, new Rectangle(0, 0, (int)blockDefinitions[blockName].CollisionBoxSize.X, (int)blockDefinitions[blockName].CollisionBoxSize.Y));
+                blockArray[index1, index2] = dynamicBlock;
                 CollisionBoxes.Add(blockArray[index1, index2]);
+                return true;
             }
+            return false;
         }
 
-        public static void RemoveBlock()
+        public static bool RemoveBlock()
         {
-
+            int index1 = (int)MouseReader.TransformedGridPosition.Y / (int)TileSize.Y;
+            int index2 = (int)MouseReader.TransformedGridPosition.X / (int)TileSize.X;
+            if (blockArray[index1, index2] != null)
+                if (blockArray[index1, index2]._texture == textures["dynamic"])
+                {
+                    blockArray[index1, index2] = null;
+                    return true;
+                }
+            return false;
         }
     }
 }

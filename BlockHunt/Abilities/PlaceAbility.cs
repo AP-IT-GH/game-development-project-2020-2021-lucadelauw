@@ -13,12 +13,13 @@ namespace BlockHunt.Abilities
             Place,
             Remove
         }
-        public const bool Toggle = false;
-        public const bool Trigger = true;
+
 
         private static bool enabled = false;
 
         private static Action action;
+
+        private static byte amountOfBlocks = 3;
         public PlaceAbility(Action thisAction)
         {
             action = thisAction;
@@ -30,10 +31,16 @@ namespace BlockHunt.Abilities
                 HUD.TogglePlace();
                 enabled = !enabled;
             }
-            else if (action == Action.Place && enabled)
-                Level.LevelManager.PlaceBlock();
+            else if (action == Action.Place && enabled && amountOfBlocks >= 1)
+            {
+                if (Level.LevelManager.PlaceBlock())
+                    amountOfBlocks--;
+            }
             else if (action == Action.Remove && enabled)
-                Level.LevelManager.RemoveBlock();
+            {
+                if (Level.LevelManager.RemoveBlock())
+                    amountOfBlocks++;
+            }
         }
     }
 }

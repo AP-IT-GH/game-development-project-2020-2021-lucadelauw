@@ -73,6 +73,7 @@ namespace BlockHunt.Level.Background
                 pos4 = pos4 + 1920;
             layers[4, 0].positionRectangle = new Rectangle(pos4, 0, 1920, 1080);
             layers[4, 1].positionRectangle = new Rectangle(layers[4, 0].positionRectangle.X + layers[4, 0].positionRectangle.Width, 0, 1920, 1080);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

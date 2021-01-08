@@ -43,6 +43,9 @@ namespace BlockHunt
 
         public void Update(GameTime gameTime)
         {
+            if (Position.Y > 1080)
+                new ResetCommand().Execute(this);
+
             // get input and excecute commands
             foreach (IGameCommand command in keyboardReader.ReadCommands())
                 command.Execute(this);

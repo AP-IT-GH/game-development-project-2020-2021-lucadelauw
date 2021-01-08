@@ -5,7 +5,7 @@ namespace BlockHunt.Physics
 {
     public class FrictionManager : IPhysicComponent
     {
-        public static Vector2 Friction { get; set; } = new Vector2(15.58f, 5.45f);
+        public static Vector2 Friction { get; set; } = new Vector2(50f, 5.45f);
 
         public void ApplyPhysic(ITransform transform)
         {

@@ -7,6 +7,7 @@ using BlockHunt.Input;
 using BlockHunt.Commands;
 using Microsoft.Xna.Framework.Content;
 using BlockHunt.Physics;
+using BlockHunt.Abilities;
 
 namespace BlockHunt
 {
@@ -14,7 +15,8 @@ namespace BlockHunt
     {
         private ContentManager content;
         private HeroAnimation animation;
-        private IInputReader inputReader;
+        private IInputReader keyboardReader;
+        private IInputReader mouseReader;
         private PhysicsManager phyma;
 
         public float Scale { get; set; } = 0.25f;
@@ -27,23 +29,32 @@ namespace BlockHunt
         public Rectangle CollisionBox { get; set; }
         public ICollision[] Contact { get; set; } = new ICollision[4];
 
-        public Hero(ContentManager content, IInputReader reader)
+        public Hero(ContentManager content, IInputReader keyboard, IInputReader mouse)
         {
             this.content = content;
             animation = new HeroAnimation(content);
 
             CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
 
-            inputReader = reader;
+            keyboardReader = keyboard;
+            mouseReader = mouse;
             phyma = new PhysicsManager(new List<IPhysicComponent>() { new FrictionManager(), new GravityManager() });
         }
 
         public void Update(GameTime gameTime)
         {
-            // get input and excecute command(s)
-            List<IGameCommand> commands = inputReader.ReadInput();
-            foreach (IGameCommand command in commands)
+            // get input and excecute commands
+            foreach (IGameCommand command in keyboardReader.ReadCommands())
                 command.Execute(this);
+            foreach (IGameCommand command in mouseReader.ReadCommands())
+                command.Execute(this);
+
+            // get input and excecute abilities
+            foreach (IAbility ability in keyboardReader.ReadAbilities())
+                ability.Execute();
+            foreach (IAbility ability in mouseReader.ReadAbilities())
+                ability.Execute();
+
             PrevPosition = Position;
 
             // Apply the physics (Gravity and Friction)

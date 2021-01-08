@@ -1,4 +1,5 @@
-﻿using BlockHunt.Commands;
+﻿using BlockHunt.Abilities;
+using BlockHunt.Commands;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace BlockHunt.Input
 {
     public interface IInputReader
     {
-        List<IGameCommand> ReadInput();
+        List<IGameCommand> ReadCommands();
+        List<IAbility> ReadAbilities();
     }
 }

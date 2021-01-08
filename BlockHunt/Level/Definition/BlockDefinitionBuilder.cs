@@ -38,8 +38,11 @@ namespace BlockHunt.Level.Definition
             definitions.Add("door_open_top", new BlockDefinition("door_openTop", false, tileSize));
 
             // Decoration
-            definitions.Add("fence", new BlockDefinition("fence", true, tileSize));
+            definitions.Add("fence", new BlockDefinition("fence", false, tileSize));
             definitions.Add("fence_broken", new BlockDefinition("fenceBroken", false, tileSize));
+
+            // Placeable
+            definitions.Add("dynamic", new BlockDefinition("boxAlt", true, tileSize));
         }
     }
 }

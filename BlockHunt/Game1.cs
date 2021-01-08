@@ -1,5 +1,6 @@
 ﻿using BlockHunt.Input;
 using BlockHunt.Level;
+using BlockHunt.UserInterface;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,10 +13,13 @@ namespace BlockHunt
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Camera camera;
-        private Matrix viewMatrix;
+        public static Matrix viewMatrix;
 
         private Hero hero;
-        LevelManager level;
+        private LevelManager level;
+        private HUD hud;
+
+        Texture2D placingRectangleTexture;
 
         enum GameState
         {
@@ -30,11 +34,11 @@ namespace BlockHunt
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
-            _graphics.ToggleFullScreen();
+            //_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.ApplyChanges();
-            camera = new Camera();
+
         }
 
         protected override void Initialize()
@@ -45,6 +49,7 @@ namespace BlockHunt
             level = new LevelManager(Content, new Level.Definition.BlockDefinitionBuilder(), new CsvReader(ILevelReader.LEVEL1), new Level.Background.ParallaxBackground(Content));
             level.CreateWorld();
 
+            camera = new Camera();
 
             base.Initialize();
         }
@@ -53,12 +58,16 @@ namespace BlockHunt
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            var placingRectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
+            placingRectangleTexture .SetData(new[] { Color.White });
+            hud = new HUD(placingRectangleTexture);
+
             InitializeGameObject();
         }
 
         private void InitializeGameObject()
         {
-            hero = new Hero(Content, new KeyboardReader());
+            hero = new Hero(Content, new KeyboardReader(), new MouseReader());
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,16 +77,21 @@ namespace BlockHunt
 
             hero.Update(gameTime);
             level.Update(hero.Position);
-            camera.MoveTo(new Vector2(-hero.Position.X, -hero.Position.Y));
+            hud.Update(gameTime);
+            camera.MoveTo(new Vector2(-hero.Position.X, 0));
             viewMatrix = camera.GetTransform();
+            MouseReader.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            Vector2 parallax = new Vector2(0.5f);
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, viewMatrix);
             level.DrawWorld(_spriteBatch);
+            hud.Draw(_spriteBatch);
             hero.Draw(_spriteBatch);
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }

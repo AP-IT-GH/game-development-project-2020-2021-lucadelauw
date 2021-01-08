@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,9 @@ namespace BlockHunt
     class Camera
     {
         public float Zoom { get; set; }
-        public Vector2 Position { get; set; }
-        public float Rotation { get; set; }
-        public Vector2 Origin { get; set; }
+        private Vector2 Position { get; set; }
+        private float Rotation { get; set; }
+        private Vector2 Origin { get; set; }
         public Camera()
         {
             Zoom = 1;

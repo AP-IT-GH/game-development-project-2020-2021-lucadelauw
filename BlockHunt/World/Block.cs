@@ -7,14 +7,14 @@ using System.Text;
 
 namespace Level.World
 {
-    public class Blok : ICollision
+    public class Block : ICollision
     {
         public Rectangle CollisionBox { get; set; }
         public Texture2D _texture { get; set; }
         public Vector2 Position { get; set; }
         public Rectangle DestinationRectangle { get; set; }
 
-        public Blok(Texture2D texture, Vector2 pos, Rectangle destinationRectangle)
+        public Block(Texture2D texture, Vector2 pos, Rectangle destinationRectangle)
         {
             _texture = texture;
             Position = pos;

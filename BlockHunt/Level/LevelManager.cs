@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using BlockHunt.Level.Definition;
 using System.Collections.Generic;
+using BlockHunt.Input;
 
 namespace BlockHunt.Level
 {
@@ -18,13 +19,14 @@ namespace BlockHunt.Level
         private readonly ContentManager content;
         private readonly IBlockDefinitionBuilder blockDefinitionBuilder;
         private readonly ILevelReader levelReader;
+
         private readonly IBackground background;
 
-        private readonly Dictionary<string, IBlockDefinition> blockDefinitions;
+        private static Dictionary<string, IBlockDefinition> blockDefinitions;
         private byte[,] tileArray;
-        private Blok[,] blokArray;
+        private static Block[,] blockArray;
 
-        private Dictionary<string, Texture2D> textures;
+        private static Dictionary<string, Texture2D> textures;
 
 
         public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IBackground background)
@@ -37,7 +39,7 @@ namespace BlockHunt.Level
             CollisionBoxes = new List<ICollision> { };
             blockDefinitions = blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = this.levelReader.GetLevel();
-            blokArray = new Blok[tileArray.GetLength(0), tileArray.GetLength(1)];
+            blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
             textures = new Dictionary<string, Texture2D>();
 
@@ -70,93 +72,93 @@ namespace BlockHunt.Level
 
                         case 1:
                             blokName = "grass";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 2:
                             blokName = "grass_center";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 3:
                             blokName = "grass_mid";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 4:
                             blokName = "grass_left";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 5:
                             blokName = "grass_right";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 6:
                             blokName = "grass_cliff_left";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 7:
                             blokName = "grass_cliff_right";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 8:
                             blokName = "door_closed_mid";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 9:
                             blokName = "door_closed_top";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 10:
                             blokName = "door_open_mid";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 11:
                             blokName = "door_open_top";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 12:
                             blokName = "fence";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
 
                         case 13:
                             blokName = "fence_broken";
-                            blokArray[x, y] = new Blok(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
+                            blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
-                                CollisionBoxes.Add(blokArray[x, y]);
+                                CollisionBoxes.Add(blockArray[x, y]);
                             break;
                     }
 
@@ -172,16 +174,33 @@ namespace BlockHunt.Level
         public void DrawWorld(SpriteBatch spritebatch)
         {
             background.Draw(spritebatch);
-            for (int x = 0; x < blokArray.GetLength(0); x++)
+            for (int x = 0; x < blockArray.GetLength(0); x++)
             {
-                for (int y = 0; y < blokArray.GetLength(1); y++)
+                for (int y = 0; y < blockArray.GetLength(1); y++)
                 {
-                    if (blokArray[x, y] != null)
+                    if (blockArray[x, y] != null)
                     {
-                        blokArray[x, y].Draw(spritebatch);
+                        blockArray[x, y].Draw(spritebatch);
                     }
                 }
             }
+
+        }
+
+        public static void PlaceBlock()
+        {
+            string blockName = "dynamic";
+            int index1 = (int)MouseReader.TransformedGridPosition.Y / (int)TileSize.Y;
+            int index2 = (int)MouseReader.TransformedGridPosition.X / (int)TileSize.X;
+            if (blockArray[index1, index2] == null)
+            {
+                blockArray[index1, index2] = new Block(textures[blockName], MouseReader.TransformedGridPosition, new Rectangle(0, 0, (int)blockDefinitions[blockName].CollisionBoxSize.X, (int)blockDefinitions[blockName].CollisionBoxSize.Y));
+                CollisionBoxes.Add(blockArray[index1, index2]);
+            }
+        }
+
+        public static void RemoveBlock()
+        {
 
         }
     }

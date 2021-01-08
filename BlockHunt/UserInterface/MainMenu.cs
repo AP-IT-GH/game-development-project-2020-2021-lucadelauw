@@ -19,5 +19,14 @@ namespace BlockHunt.UserInterface
         private Vector2 startButtonPosition;
         private Vector2 exitButtonPosition;
         private Vector2 resumeButtonPosition;
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

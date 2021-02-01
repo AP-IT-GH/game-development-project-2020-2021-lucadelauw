@@ -1,6 +1,7 @@
-﻿using BlockHunt.Input;
+﻿using BlockHunt.Abilities;
+using BlockHunt.Input;
 using BlockHunt.Level;
-using BlockHunt.UserInterface;
+using BlockHunt.UserInterface.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,8 +20,6 @@ namespace BlockHunt
         private Hero hero;
         private LevelManager level;
         private HUD hud;
-
-        Texture2D placingRectangleTexture;
 
         enum GameState
         {
@@ -45,12 +44,12 @@ namespace BlockHunt
         protected override void Initialize()
         {
 
-
-
             level = new LevelManager(Content, new Level.Definition.BlockDefinitionBuilder(), new CsvReader(ILevelReader.LEVEL1), new Level.Background.ParallaxBackground(Content));
             level.CreateWorld();
 
             camera = new Camera();
+
+
 
             base.Initialize();
         }
@@ -58,25 +57,11 @@ namespace BlockHunt
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            PlaceAbility.RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
+            PlaceAbility.RectangleTexture.SetData(new[] { Color.White });
 
-
-            var placingRectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
-            placingRectangleTexture .SetData(new[] { Color.White });
-
-            Texture2D[] zeroToNine = new Texture2D[10];
-            string path = "UserInterface/HUD/";
-            zeroToNine[0]= Content.Load<Texture2D>(path + "hud_0");
-            zeroToNine[1]= Content.Load<Texture2D>(path + "hud_1");
-            zeroToNine[2]= Content.Load<Texture2D>(path + "hud_2");
-            zeroToNine[3]= Content.Load<Texture2D>(path + "hud_3");
-            zeroToNine[4]= Content.Load<Texture2D>(path + "hud_4");
-            zeroToNine[5]= Content.Load<Texture2D>(path + "hud_5");
-            zeroToNine[6]= Content.Load<Texture2D>(path + "hud_6");
-            zeroToNine[7]= Content.Load<Texture2D>(path + "hud_7");
-            zeroToNine[8]= Content.Load<Texture2D>(path + "hud_8");
-            zeroToNine[9]= Content.Load<Texture2D>(path + "hud_9");
-            hud = new HUD(placingRectangleTexture, zeroToNine);
-
+            hud = HUD.Instance;
+                
             InitializeGameObject();
         }
 

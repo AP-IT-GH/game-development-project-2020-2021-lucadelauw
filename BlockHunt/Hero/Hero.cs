@@ -39,6 +39,20 @@ namespace BlockHunt
             keyboardReader = keyboard;
             mouseReader = mouse;
             phyma = new PhysicsManager(new List<IPhysicComponent>() { new FrictionManager(), new GravityManager() });
+
+            string path = "UserInterface/HUD/";
+            var zeroToNine = new Texture2D[10];
+            zeroToNine[0] = content.Load<Texture2D>(path + "hud_0");
+            zeroToNine[1] = content.Load<Texture2D>(path + "hud_1");
+            zeroToNine[2] = content.Load<Texture2D>(path + "hud_2");
+            zeroToNine[3] = content.Load<Texture2D>(path + "hud_3");
+            zeroToNine[4] = content.Load<Texture2D>(path + "hud_4");
+            zeroToNine[5] = content.Load<Texture2D>(path + "hud_5");
+            zeroToNine[6] = content.Load<Texture2D>(path + "hud_6");
+            zeroToNine[7] = content.Load<Texture2D>(path + "hud_7");
+            zeroToNine[8] = content.Load<Texture2D>(path + "hud_8");
+            zeroToNine[9] = content.Load<Texture2D>(path + "hud_9");
+            PlaceAbility.ZeroToNine = zeroToNine;
         }
 
         public void Update(GameTime gameTime)
@@ -79,13 +93,6 @@ namespace BlockHunt
         public void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch, Scale);
-        }
-
-        public void SetHeroPosition(Vector2 position)
-        {
-            Position = position;
-            Velocity = new Vector2(0, 0);
-            Acceleration = new Vector2(0, 0);
         }
     }
 }

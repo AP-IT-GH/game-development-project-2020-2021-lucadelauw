@@ -6,19 +6,35 @@ using System.Text;
 
 namespace BlockHunt
 {
+    // Singleton
     class Camera
     {
+        private static Camera instance = null;
+
+
         private float Zoom { get; set; }
-        private Vector2 Position { get; set; }
+        public Vector2 Position { get; set; }
         private float Rotation { get; set; }
         private Rectangle Bounds { get; set; }
-        public static Matrix CameraMatrix { get; private set; }
-        public Camera()
+        public Matrix CameraMatrix { get; private set; }
+
+        private Camera()
         {
             Zoom = 1;
             Position = Vector2.Zero;
             Rotation = 0;
             Bounds = Rectangle.Empty;
+        }
+
+        public static Camera Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Camera();
+
+                return instance;
+            }
         }
 
         public void MoveTo(Vector2 position)
@@ -38,7 +54,7 @@ namespace BlockHunt
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
         }
 
-        public static Vector2 Inverse(Vector2 location)
+        public Vector2 Inverse(Vector2 location)
         {
             return Vector2.Transform(location, Matrix.Invert(CameraMatrix));
         }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Level.World
+namespace BlockHunt.Level.World
 {
     public class Block : ICollision
     {

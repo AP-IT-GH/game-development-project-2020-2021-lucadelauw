@@ -34,7 +34,6 @@ namespace BlockHunt.UserInterface.HUD
 
 
         private static bool placingMode = false;
-        private static byte blockCount;
 
         public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(1900, 20, 26, 37);
         public static float AmountOfBlockNumberScale { get; set; } = 1.5f;

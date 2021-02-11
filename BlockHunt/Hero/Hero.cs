@@ -42,16 +42,16 @@ namespace BlockHunt
 
             string path = "UserInterface/HUD/";
             var zeroToNine = new Texture2D[10];
-            zeroToNine[0] = content.Load<Texture2D>(path + "hud_0");
-            zeroToNine[1] = content.Load<Texture2D>(path + "hud_1");
-            zeroToNine[2] = content.Load<Texture2D>(path + "hud_2");
-            zeroToNine[3] = content.Load<Texture2D>(path + "hud_3");
-            zeroToNine[4] = content.Load<Texture2D>(path + "hud_4");
-            zeroToNine[5] = content.Load<Texture2D>(path + "hud_5");
-            zeroToNine[6] = content.Load<Texture2D>(path + "hud_6");
-            zeroToNine[7] = content.Load<Texture2D>(path + "hud_7");
-            zeroToNine[8] = content.Load<Texture2D>(path + "hud_8");
-            zeroToNine[9] = content.Load<Texture2D>(path + "hud_9");
+            zeroToNine[0] = this.content.Load<Texture2D>(path + "hud_0");
+            zeroToNine[1] = this.content.Load<Texture2D>(path + "hud_1");
+            zeroToNine[2] = this.content.Load<Texture2D>(path + "hud_2");
+            zeroToNine[3] = this.content.Load<Texture2D>(path + "hud_3");
+            zeroToNine[4] = this.content.Load<Texture2D>(path + "hud_4");
+            zeroToNine[5] = this.content.Load<Texture2D>(path + "hud_5");
+            zeroToNine[6] = this.content.Load<Texture2D>(path + "hud_6");
+            zeroToNine[7] = this.content.Load<Texture2D>(path + "hud_7");
+            zeroToNine[8] = this.content.Load<Texture2D>(path + "hud_8");
+            zeroToNine[9] = this.content.Load<Texture2D>(path + "hud_9");
             PlaceAbility.ZeroToNine = zeroToNine;
         }
 
@@ -86,6 +86,9 @@ namespace BlockHunt
             CollisionHandler.Move(this, gameTime);
 
             CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));
+
+            if (Position.Y > 2000)
+                new ResetCommand().Execute(this);
 
             animation.Update(gameTime, Position);
         }

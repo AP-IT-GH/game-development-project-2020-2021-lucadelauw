@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlockHunt.World
+namespace BlockHunt.Level.World
 {
     class Barrier : ICollision
     {

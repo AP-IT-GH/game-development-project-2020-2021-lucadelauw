@@ -1,6 +1,6 @@
 ﻿using BlockHunt.interfaces;
 using BlockHunt.Level.Background;
-using Level.World;
+using BlockHunt.Level.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

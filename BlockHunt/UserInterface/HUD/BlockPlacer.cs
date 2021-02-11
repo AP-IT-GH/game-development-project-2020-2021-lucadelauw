@@ -15,7 +15,7 @@ namespace BlockHunt.UserInterface.HUD
         private Rectangle placingRectangle = Rectangle.Empty;
         private static byte blockCount;
 
-        public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(1900, 20, 26, 37);
+        public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(1800, 20, 26, 37);
         public static float AmountOfBlockNumberScale { get; set; } = 1.5f;
 
         private Texture2D[] zeroToNine;
@@ -44,8 +44,9 @@ namespace BlockHunt.UserInterface.HUD
             }
 
             // Amount of placeable blocks number 
-            Vector2 transformedPosition = Camera.Inverse(new Vector2(AmountOfBlockNumberRectangle.X - AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale, AmountOfBlockNumberRectangle.Y));
-            spriteBatch.Draw(zeroToNine[blockCount], new Rectangle((int)transformedPosition.X, (int)transformedPosition.Y, (int)(AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale), (int)(AmountOfBlockNumberRectangle.Height * AmountOfBlockNumberScale)), Color.White);
+            //Vector2 transformedPosition = Camera.Inverse(new Vector2(AmountOfBlockNumberRectangle.X - AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale, AmountOfBlockNumberRectangle.Y));
+            //spriteBatch.Draw(zeroToNine[blockCount], new Rectangle((int)transformedPosition.X, (int)transformedPosition.Y, (int)(AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale), (int)(AmountOfBlockNumberRectangle.Height * AmountOfBlockNumberScale)), Color.White);
+            spriteBatch.Draw(zeroToNine[blockCount], AmountOfBlockNumberRectangle, Color.White);
         }
 
         public static void TogglePlace()

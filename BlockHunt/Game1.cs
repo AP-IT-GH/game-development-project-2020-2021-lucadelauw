@@ -86,13 +86,18 @@ namespace BlockHunt
 
         protected override void Draw(GameTime gameTime)
         {
+            // Moving items
             Vector2 parallax = new Vector2(0.5f);
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, viewMatrix);
             level.DrawWorld(_spriteBatch);
-            hud.Draw(_spriteBatch);
             hero.Draw(_spriteBatch);
-
             _spriteBatch.End();
+
+            //static items
+            _spriteBatch.Begin();
+            hud.Draw(_spriteBatch);
+            _spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

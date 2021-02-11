@@ -1,4 +1,5 @@
 ﻿using BlockHunt.Abilities;
+using BlockHunt.GameState;
 using BlockHunt.Input;
 using BlockHunt.Level;
 using BlockHunt.UserInterface.HUD;
@@ -14,20 +15,9 @@ namespace BlockHunt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Camera camera;
-        public static Matrix viewMatrix;
 
-        private Hero hero;
-        private LevelManager level;
-        private HUD hud;
 
-        enum GameState
-        {
-            StartMenu,
-            Loading,
-            Playing,
-            Paused
-        }
+        GameStateManager gameStateManager;
 
         public Game1()
         {
@@ -39,18 +29,15 @@ namespace BlockHunt
             IsMouseVisible = true;
             _graphics.ApplyChanges();
 
+
+            gameStateManager = new GameStateManager(Content);
+            var playingState = new PlayingState(Content);
+            gameStateManager.AddState(playingState);
+            gameStateManager.setState(playingState);
         }
 
         protected override void Initialize()
         {
-
-            level = new LevelManager(Content, new Level.Definition.BlockDefinitionBuilder(), new CsvReader(ILevelReader.LEVEL1), new Level.Background.ParallaxBackground(Content));
-            level.CreateWorld();
-
-            camera = new Camera();
-
-
-
             base.Initialize();
         }
 
@@ -59,44 +46,25 @@ namespace BlockHunt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             PlaceAbility.RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
             PlaceAbility.RectangleTexture.SetData(new[] { Color.White });
-
-            hud = HUD.Instance;
                 
             InitializeGameObject();
         }
 
         private void InitializeGameObject()
         {
-            hero = new Hero(Content, new KeyboardReader(), new MouseReader());
+
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            gameStateManager.Update(gameTime);
 
-            hero.Update(gameTime);
-            level.Update(hero.Position);
-            hud.Update(gameTime);
-            camera.MoveTo(new Vector2(-hero.Position.X, 0));
-            viewMatrix = camera.GetTransform();
-            MouseReader.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            // Moving items
-            Vector2 parallax = new Vector2(0.5f);
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, viewMatrix);
-            level.DrawWorld(_spriteBatch);
-            hero.Draw(_spriteBatch);
-            _spriteBatch.End();
-
-            //static items
-            _spriteBatch.Begin();
-            hud.Draw(_spriteBatch);
-            _spriteBatch.End();
+            gameStateManager.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }

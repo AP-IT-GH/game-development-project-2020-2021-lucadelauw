@@ -1,5 +1,6 @@
 ﻿using BlockHunt.Abilities;
 using BlockHunt.Commands;
+using BlockHunt.GameState;
 using BlockHunt.Level;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -25,7 +26,7 @@ namespace BlockHunt.Input
 
             Position = mouse.Position.ToVector2();
             GridPosition = new Vector2(Position.X - (Position.X % LevelManager.TileSize.X), Position.Y - (Position.Y % LevelManager.TileSize.Y));
-            TransformedPosition = Vector2.Transform(Position, Matrix.Invert(Game1.viewMatrix));
+            TransformedPosition = Vector2.Transform(Position, Matrix.Invert(PlayingState.viewMatrix));
             TransformedGridPosition = new Vector2(TransformedPosition.X - (TransformedPosition.X % LevelManager.TileSize.X), TransformedPosition.Y - (TransformedPosition.Y % LevelManager.TileSize.Y));
         }
 

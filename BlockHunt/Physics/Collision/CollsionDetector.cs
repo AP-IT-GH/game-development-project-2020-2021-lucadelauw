@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BlockHunt.Physics
 {
+    // Source: https://github.com/OneLoneCoder/olcPixelGameEngine/blob/master/Videos/OneLoneCoder_PGE_Rectangles.cpp
     public class CollsionDetector
     {
         public static bool PointVsRect(Vector2 p, Rectangle r)
@@ -110,7 +111,6 @@ namespace BlockHunt.Physics
             float contact_time = 0.0f;
             if (DynamicRectVsRect(obj, fTimeStep, collision, ref contact_point, ref contact_normal, ref contact_time))
             {
-                //System.Diagnostics.Debug.WriteLine(System.DateTime.Now.Ticks.ToString() + "COLLISION");
                 if (contact_normal.Y > 0)
                 {
                     obj.Contact[0] = collision;
@@ -140,7 +140,6 @@ namespace BlockHunt.Physics
                 return true;
             }
             else
-                //System.Diagnostics.Debug.WriteLine("NO COLLISION");
             return false;
         }
     }

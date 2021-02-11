@@ -7,6 +7,7 @@ using System.Text;
 
 namespace BlockHunt.Physics
 {
+    // Source: https://github.com/OneLoneCoder/olcPixelGameEngine/blob/master/Videos/OneLoneCoder_PGE_Rectangles.cpp
     class CollisionHandler
     {
         public static void Move(IPhysicsObject obj, GameTime gameTime)

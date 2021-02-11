@@ -28,7 +28,7 @@ namespace BlockHunt.UserInterface.HUD
 
         public void Update(GameTime gameTime)
         {
-            placingRectangle = new Rectangle((int)MouseReader.TransformedGridPosition.X, (int)MouseReader.TransformedGridPosition.Y, (int)LevelManager.TileSize.X, (int)LevelManager.TileSize.Y);
+            placingRectangle = new Rectangle((int)MouseReader.GridPosition.X, (int)MouseReader.GridPosition.Y, (int)LevelManager.TileSize.X, (int)LevelManager.TileSize.Y);
         }
 
         public void Draw(SpriteBatch spriteBatch)

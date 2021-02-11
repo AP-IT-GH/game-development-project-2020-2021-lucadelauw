@@ -10,6 +10,5 @@ namespace BlockHunt.interfaces
         Vector2 Position { get; set; }
         Vector2 PrevPosition { get; set; }
         Vector2 Velocity { get; set; }
-        Vector2 Acceleration { get; set; }
     }
 }

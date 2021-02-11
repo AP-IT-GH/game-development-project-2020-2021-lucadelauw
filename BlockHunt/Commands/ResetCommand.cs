@@ -12,7 +12,6 @@ namespace BlockHunt.Commands
         public void Execute(ITransform transform)
         {
             transform.Position = resetPosition;
-            transform.Acceleration = Vector2.Zero;
             transform.Velocity = Vector2.Zero;
         }
     }

@@ -9,8 +9,8 @@ namespace BlockHunt.Physics
 
         public void ApplyPhysic(ITransform transform)
         {
-            float accX = transform.Acceleration.X;
-            float accY = transform.Acceleration.Y;
+            float accX = transform.Velocity.X;
+            float accY = transform.Velocity.Y;
 
             if (accX > Friction.X)
                 accX -= Friction.X;
@@ -25,7 +25,7 @@ namespace BlockHunt.Physics
                 accY += Friction.Y;
             else
                 accY = 0;
-            transform.Acceleration = new Vector2(accX, accY);
+            transform.Velocity = new Vector2(accX, accY);
         }
     }
 }

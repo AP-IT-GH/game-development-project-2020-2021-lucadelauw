@@ -24,7 +24,6 @@ namespace BlockHunt
         // IPhysicsObject
         public Vector2 Position { get; set; } = new Vector2(0, 0);
         public Vector2 PrevPosition { get; set; } = new Vector2(0, 0);
-        public Vector2 Acceleration { get; set; } = new Vector2(0, 0);
         public Vector2 Velocity { get; set; } = new Vector2(0, 0);
         public Rectangle CollisionBox { get; set; }
         public ICollision[] Contact { get; set; } = new ICollision[4];
@@ -78,7 +77,8 @@ namespace BlockHunt
             phyma.ApplyPhysics(this);
 
             // Accelerate the velocity
-            Velocity = Acceleration;
+            //Velocity = Acceleration;
+            System.Diagnostics.Debug.WriteLine("Velocity: " + Velocity);
 
             // Create the new collisionbox for the next position
             CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));

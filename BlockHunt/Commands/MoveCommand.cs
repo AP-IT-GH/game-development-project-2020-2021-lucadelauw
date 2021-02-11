@@ -31,7 +31,7 @@ namespace BlockHunt.Commands
         }
         public void Execute(ITransform transform)
         {
-            transform.Acceleration = new Vector2(direction.X * speed.X, transform.Acceleration.Y);
+            transform.Velocity = new Vector2(direction.X * speed.X, transform.Velocity.Y);
         }
     }
 }

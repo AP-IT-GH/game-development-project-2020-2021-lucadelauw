@@ -20,7 +20,7 @@ namespace BlockHunt.Commands
         public void Execute(ITransform transform)
         {
             if (transform.Position.Y == transform.PrevPosition.Y)
-            transform.Acceleration = new Vector2(transform.Acceleration.X,(speed.Y * direction.Y));
+            transform.Velocity = new Vector2(transform.Velocity.X,(speed.Y * direction.Y));
 
             prevPosition = transform.Position;
         }

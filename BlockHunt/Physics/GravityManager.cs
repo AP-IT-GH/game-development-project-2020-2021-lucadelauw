@@ -12,7 +12,7 @@ namespace BlockHunt.Physics
 
         public void ApplyPhysic(ITransform transform)
         {
-            transform.Acceleration = new Vector2(transform.Acceleration.X, transform.Acceleration.Y + Gravity.Y);
+            transform.Velocity = new Vector2(transform.Velocity.X, transform.Velocity.Y + Gravity.Y);
         }
     }
 }

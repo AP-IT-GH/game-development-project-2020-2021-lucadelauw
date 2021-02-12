@@ -15,8 +15,8 @@ namespace BlockHunt.UserInterface.HUD
         private Rectangle placingRectangle = Rectangle.Empty;
         private static byte blockCount;
 
-        public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(1800, 20, 26, 37);
         public static float AmountOfBlockNumberScale { get; set; } = 1.5f;
+        public static Rectangle AmountOfBlockNumberRectangle { get; set; } = new Rectangle(1800, 20, (int)(26 * AmountOfBlockNumberScale), (int)(37 * AmountOfBlockNumberScale));
 
         private Texture2D[] zeroToNine;
 

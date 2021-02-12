@@ -25,7 +25,7 @@ namespace BlockHunt.Level
         private readonly IBackground background;
 
         private static Dictionary<string, IBlockDefinition> blockDefinitions;
-        private byte[,] tileArray;
+        private readonly byte[,] tileArray;
         private static Block[,] blockArray;
 
         private static Dictionary<string, Texture2D> textures;
@@ -41,7 +41,7 @@ namespace BlockHunt.Level
             StaticCollisionBoxes = new List<ICollision> { };
             DynamicCollisionBoxes = new Dictionary<Tuple<int, int>, ICollision>();
             CollisionBoxes = new List<ICollision> { };
-            blockDefinitions = blockDefinitionBuilder.GetBlockDefinitions();
+            blockDefinitions = this.blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = this.levelReader.GetLevel();
             blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
@@ -170,9 +170,9 @@ namespace BlockHunt.Level
             }
         }
 
-        public void Update(Vector2 heroPosition)
+        public void Update()
         {
-            background.Update(heroPosition);
+            background.Update();
 
             CollisionBoxes = new List<ICollision>();
             CollisionBoxes.AddRange(StaticCollisionBoxes);

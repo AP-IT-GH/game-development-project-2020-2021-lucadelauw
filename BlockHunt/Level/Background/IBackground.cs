@@ -8,7 +8,7 @@ namespace BlockHunt.Level.Background
 {
     public interface IBackground
     {
-        void Update(Vector2 position);
+        void Update();
         void Draw(SpriteBatch spriteBatch);
     }
 }

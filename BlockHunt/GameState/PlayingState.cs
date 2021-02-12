@@ -1,4 +1,4 @@
-﻿using BlockHunt.Input;
+using BlockHunt.Input;
 using BlockHunt.Level;
 using BlockHunt.UserInterface.HUD;
 using Microsoft.Xna.Framework;
@@ -40,7 +40,7 @@ namespace BlockHunt.GameState
                 currentState = GameState.Paused;*/
 
             hero.Update(gameTime);
-            level.Update(hero.Position);
+            level.Update();
             hud.Update(gameTime);
             camera.MoveTo(new Vector2(-hero.Position.X, 0));
             viewMatrix = camera.GetTransform();

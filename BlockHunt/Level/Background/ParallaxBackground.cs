@@ -47,9 +47,10 @@ namespace BlockHunt.Level.Background
             }
         }
 
-        public void Update(Vector2 cameraPosition)
+        public void Update()
         {
-            cameraPosition = new Vector2(-camera.Position.X,-camera.Position.Y);
+            var cameraPosition = new Vector2(-camera.Position.X,-camera.Position.Y);
+
             layers[0, 0].positionRectangle = new Rectangle((int)(cameraPosition.X), 0, 1920, 1080);
             layers[0, 1].positionRectangle = new Rectangle(layers[0, 0].positionRectangle.X + layers[0, 0].positionRectangle.Width, 0, 1920, 1080);
 

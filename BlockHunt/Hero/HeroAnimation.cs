@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace BlockHunt.Animation
+namespace BlockHunt.HeroNS
 {
     enum HeroAction
     {

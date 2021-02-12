@@ -44,8 +44,6 @@ namespace BlockHunt.UserInterface.HUD
             }
 
             // Amount of placeable blocks number 
-            //Vector2 transformedPosition = Camera.Inverse(new Vector2(AmountOfBlockNumberRectangle.X - AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale, AmountOfBlockNumberRectangle.Y));
-            //spriteBatch.Draw(zeroToNine[blockCount], new Rectangle((int)transformedPosition.X, (int)transformedPosition.Y, (int)(AmountOfBlockNumberRectangle.Width * AmountOfBlockNumberScale), (int)(AmountOfBlockNumberRectangle.Height * AmountOfBlockNumberScale)), Color.White);
             spriteBatch.Draw(zeroToNine[blockCount], AmountOfBlockNumberRectangle, Color.White);
         }
 

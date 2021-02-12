@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlockHunt.Animation
+namespace BlockHunt.HeroNS
 {
     class AnimationFrame
     {

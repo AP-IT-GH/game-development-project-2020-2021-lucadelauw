@@ -2,14 +2,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using BlockHunt.Animation;
 using BlockHunt.Input;
 using BlockHunt.Commands;
 using Microsoft.Xna.Framework.Content;
 using BlockHunt.Physics;
 using BlockHunt.Abilities;
 
-namespace BlockHunt
+namespace BlockHunt.HeroNS
 {
     public class Hero : IGameObject, IPhysicsObject
     {

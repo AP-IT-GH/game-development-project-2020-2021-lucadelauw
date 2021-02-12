@@ -1,3 +1,4 @@
+using BlockHunt.HeroNS;
 using BlockHunt.Input;
 using BlockHunt.Level;
 using BlockHunt.UserInterface.HUD;

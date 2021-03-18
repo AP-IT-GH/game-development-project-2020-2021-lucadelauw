@@ -8,7 +8,7 @@ namespace BlockHunt.GameState
 {
     interface IGameState
     {
-        public void Update(GameTime gameTime);
+        public void Update(GameTime gameTime, GameStateManager gameStateManager);
         public void Draw(SpriteBatch spriteBatch);
     }
 }

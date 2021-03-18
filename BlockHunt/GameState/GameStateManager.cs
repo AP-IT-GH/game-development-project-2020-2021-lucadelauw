@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,37 +9,39 @@ namespace BlockHunt.GameState
 {
     class GameStateManager
     {
-        private List<IGameState> states;
-        private ContentManager content;
+        private readonly IGameState playingState;
+
+        public enum States
+        {
+            Playing,
+            Paused,
+        }
+        private readonly ContentManager content;
         private IGameState currentState;
 
         public GameStateManager(ContentManager content)
         {
-            states = new List<IGameState>();
             this.content = content;
+            playingState = new PlayingState(content);
         }
 
-        public void setState(IGameState state)
+        public void SetState(States state)
         {
-            if (states.Contains(state))
-                currentState = state;
-            else
-                throw new Exception("Selected gamestate not initialized");
-        }
+            switch(state)
+            {
+                case States.Playing:
+                    currentState = playingState;
+                    break;
 
-        public void AddState(IGameState state)
-        {
-            states.Add(state);
-        }
-
-        public void RemoveState(IGameState state)
-        {
-            states.Remove(state);
+                case States.Paused:
+                    currentState = new PausedState();
+                    break;
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            currentState.Update(gameTime);
+            currentState.Update(gameTime, this);
         }
 
         public void Draw(SpriteBatch spriteBatch)

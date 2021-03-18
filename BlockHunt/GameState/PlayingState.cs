@@ -22,6 +22,8 @@ namespace BlockHunt.GameState
         private Camera camera;
         public static Matrix viewMatrix;
 
+        private bool escToggle = false;
+
         public PlayingState(ContentManager content)
         {
             this.content = content;
@@ -35,15 +37,21 @@ namespace BlockHunt.GameState
 
             hero = new Hero(content, new KeyboardReader(), new MouseReader());
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, GameStateManager gameStateManager)
         {
-/*            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                currentState = GameState.Paused;*/
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || escToggle)
+            {
+                escToggle = true;
+                if (Keyboard.GetState().IsKeyUp(Keys.Escape))
+                {
+                    gameStateManager.SetState(GameStateManager.States.Paused);
+                    escToggle = false;
+                }
+            }
             hero.Update(gameTime);
             level.Update();
             hud.Update(gameTime);
-            camera.MoveTo(new Vector2(-hero.Position.X, 0));
+            camera.MoveTo(-hero.Position.X);
             viewMatrix = camera.GetTransform();
             MouseReader.Update(gameTime);
         }

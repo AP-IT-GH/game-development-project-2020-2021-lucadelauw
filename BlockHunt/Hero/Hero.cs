@@ -77,7 +77,7 @@ namespace BlockHunt.HeroNS
 
             // Accelerate the velocity
             //Velocity = Acceleration;
-            System.Diagnostics.Debug.WriteLine("Velocity: " + Velocity);
+            //System.Diagnostics.Debug.WriteLine("Velocity: " + Velocity);
 
             // Create the new collisionbox for the next position
             CollisionBox = new Rectangle((int)(Position.X), (int)(Position.Y), (int)(319 * Scale), (int)(486 * Scale));

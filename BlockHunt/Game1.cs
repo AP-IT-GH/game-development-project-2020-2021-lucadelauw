@@ -1,4 +1,4 @@
-﻿using BlockHunt.Abilities;
+using BlockHunt.Abilities;
 using BlockHunt.GameState;
 using BlockHunt.Input;
 using BlockHunt.Level;
@@ -31,9 +31,7 @@ namespace BlockHunt
 
 
             gameStateManager = new GameStateManager(Content);
-            var playingState = new PlayingState(Content);
-            gameStateManager.AddState(playingState);
-            gameStateManager.setState(playingState);
+            gameStateManager.SetState(GameStateManager.States.Playing);
         }
 
         protected override void Initialize()

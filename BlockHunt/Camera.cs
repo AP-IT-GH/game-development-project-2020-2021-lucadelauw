@@ -16,6 +16,7 @@ namespace BlockHunt
         public Vector2 Position { get; set; }
         private float Rotation { get; set; }
         private Rectangle Bounds { get; set; }
+        private float MaxSpeed { get; set; }
         public Matrix CameraMatrix { get; private set; }
 
         private Camera()
@@ -24,6 +25,7 @@ namespace BlockHunt
             Position = Vector2.Zero;
             Rotation = 0;
             Bounds = Rectangle.Empty;
+            MaxSpeed = 0.05F;
         }
 
         public static Camera Instance
@@ -37,12 +39,26 @@ namespace BlockHunt
             }
         }
 
-        public void MoveTo(Vector2 position)
+        public void MoveTo(float desiredPosition)
         {
-            if (position.X <= -960)
-                Position = new Vector2(position.X + 960, 0);
-            else
-                Position = new Vector2(0, 0);
+            desiredPosition += 960;
+            System.Diagnostics.Debug.WriteLine("RealDes: " + desiredPosition);
+            if (desiredPosition > 0)
+                desiredPosition = 0;
+            float difference = Position.X - desiredPosition;
+            float tempMax = MaxSpeed * difference;
+            if (difference > tempMax)
+            {
+                difference = tempMax;
+                System.Diagnostics.Debug.WriteLine("1");
+            }
+            if (difference < tempMax)
+            {
+                difference = tempMax;
+                System.Diagnostics.Debug.WriteLine("2");
+            }
+            System.Diagnostics.Debug.WriteLine("Des: " + desiredPosition + " Dif: " + difference);
+            Position = new Vector2(Position.X - difference, 0);
         }
 
         public Matrix GetTransform()

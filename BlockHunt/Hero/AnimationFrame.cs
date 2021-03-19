@@ -8,11 +8,11 @@ namespace BlockHunt.HeroNS
 {
     class AnimationFrame
     {
-        public Texture2D texture { get; }
+        public Texture2D Texture { get; }
 
         public AnimationFrame(Texture2D texture)
         {
-            this.texture = texture;
+            this.Texture = texture;
         }
     }
 }

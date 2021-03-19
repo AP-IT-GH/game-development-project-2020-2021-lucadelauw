@@ -42,22 +42,14 @@ namespace BlockHunt
         public void MoveTo(float desiredPosition)
         {
             desiredPosition += 960;
-            System.Diagnostics.Debug.WriteLine("RealDes: " + desiredPosition);
             if (desiredPosition > 0)
                 desiredPosition = 0;
             float difference = Position.X - desiredPosition;
             float tempMax = MaxSpeed * difference;
             if (difference > tempMax)
-            {
                 difference = tempMax;
-                System.Diagnostics.Debug.WriteLine("1");
-            }
             if (difference < tempMax)
-            {
                 difference = tempMax;
-                System.Diagnostics.Debug.WriteLine("2");
-            }
-            System.Diagnostics.Debug.WriteLine("Des: " + desiredPosition + " Dif: " + difference);
             Position = new Vector2(Position.X - difference, 0);
         }
 

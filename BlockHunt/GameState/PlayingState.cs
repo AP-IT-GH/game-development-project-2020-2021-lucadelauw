@@ -22,6 +22,7 @@ namespace BlockHunt.GameState
         private Camera camera;
         public static Matrix viewMatrix;
 
+
         private bool escToggle = false;
 
         public PlayingState(ContentManager content)

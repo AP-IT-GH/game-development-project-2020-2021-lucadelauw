@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BlockHunt.Input;
+using BlockHunt.UserInterface;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -10,6 +12,11 @@ namespace BlockHunt.GameState
     class PausedState : IGameState
     {
         private bool escToggle = false;
+        IUserInterface menu;
+        public PausedState(Game game)
+        {
+            menu = new PausedMenu(game);
+        }
         public void Update(GameTime gameTime, GameStateManager gameStateManager)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || escToggle)
@@ -21,10 +28,15 @@ namespace BlockHunt.GameState
                     escToggle = false;
                 }
             }
+
+            MouseReader.Update(gameTime);
+            menu.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draw nothing
+            spriteBatch.Begin();
+            menu.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }

@@ -1093,6 +1093,13 @@
 /processorParam:TextureFormat=Color
 /build:UserInterface/MainMenu/1920x1080.png;UserInterface/MainMenu/background.png
 
+#begin UserInterface/UIText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:UserInterface/UIText.spritefont
+
 #begin World/Level1/world.csv
 /copy:World/Level1/world.csv
 

@@ -12,11 +12,11 @@ namespace BlockHunt.HeroNS
 {
     public class Hero : IGameObject, IPhysicsObject
     {
-        private ContentManager content;
-        private HeroAnimation animation;
-        private IInputReader keyboardReader;
-        private IInputReader mouseReader;
-        private PhysicsManager phyma;
+        private readonly ContentManager content;
+        private readonly HeroAnimation animation;
+        private readonly IInputReader keyboardReader;
+        private readonly IInputReader mouseReader;
+        private readonly PhysicsManager phyma;
 
         public float Scale { get; set; } = 0.25f;
 

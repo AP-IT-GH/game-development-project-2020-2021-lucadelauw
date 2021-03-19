@@ -10,6 +10,7 @@ namespace BlockHunt.GameState
     class GameStateManager
     {
         private readonly IGameState playingState;
+        private Game game;
 
         public enum States
         {
@@ -19,10 +20,11 @@ namespace BlockHunt.GameState
         private readonly ContentManager content;
         private IGameState currentState;
 
-        public GameStateManager(ContentManager content)
+        public GameStateManager(Game game)
         {
-            this.content = content;
-            playingState = new PlayingState(content);
+            this.game = game;
+            this.content = game.Content;
+            this.playingState = new PlayingState(content);
         }
 
         public void SetState(States state)
@@ -34,7 +36,7 @@ namespace BlockHunt.GameState
                     break;
 
                 case States.Paused:
-                    currentState = new PausedState();
+                    currentState = new PausedState(game);
                     break;
             }
         }

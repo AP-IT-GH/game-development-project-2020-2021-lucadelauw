@@ -165,9 +165,9 @@ namespace BlockHunt.HeroNS
         public void Draw(SpriteBatch spriteBatch, float scale)
         {
             if (toFlip)
-                spriteBatch.Draw(CurrentFrame.texture, position, null, Color.White, 0.00f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.00f);
+                spriteBatch.Draw(CurrentFrame.Texture, position, null, Color.White, 0.00f, new Vector2(0, 0), scale, SpriteEffects.FlipHorizontally, 0.00f);
             else
-                spriteBatch.Draw(CurrentFrame.texture, position, null, Color.White, 0.00f, new Vector2(0, 0), scale, SpriteEffects.None, 0.00f);
+                spriteBatch.Draw(CurrentFrame.Texture, position, null, Color.White, 0.00f, new Vector2(0, 0), scale, SpriteEffects.None, 0.00f);
         }
     }
 }

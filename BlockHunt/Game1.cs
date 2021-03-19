@@ -2,6 +2,7 @@ using BlockHunt.Abilities;
 using BlockHunt.GameState;
 using BlockHunt.Input;
 using BlockHunt.Level;
+using BlockHunt.UserInterface;
 using BlockHunt.UserInterface.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,16 +22,18 @@ namespace BlockHunt
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
-            _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = 1920,  // set this value to the desired width of your window
+                PreferredBackBufferHeight = 1080   // set this value to the desired height of your window
+            };
             //_graphics.ToggleFullScreen();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.ApplyChanges();
 
 
-            gameStateManager = new GameStateManager(Content);
+            gameStateManager = new GameStateManager(this);
             gameStateManager.SetState(GameStateManager.States.Playing);
         }
 
@@ -44,7 +47,10 @@ namespace BlockHunt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             PlaceAbility.RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
             PlaceAbility.RectangleTexture.SetData(new[] { Color.White });
-                
+
+            Button.LineTexture = new Texture2D(GraphicsDevice, 1, 1);
+            Button.LineTexture.SetData(new[] { Color.White });
+
             InitializeGameObject();
         }
 

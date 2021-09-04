@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<world>
+  
+  <size>
+    <height>15</height>
+    <width>180</width>
+  </size>
+
+  <enemies>
+    <enemy>
+      <position>
+        <y></y>
+        <from></from>
+        <to></to>
+      </position>
+    </enemy>
+  </enemies>
+
+  <blocks>
+    <block>
+      <position>
+        <y></y>
+        <x></x>
+      </position>
+    </block>
+  </blocks>
+
+</world>

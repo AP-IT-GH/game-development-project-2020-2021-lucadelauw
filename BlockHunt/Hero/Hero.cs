@@ -10,7 +10,7 @@ using BlockHunt.Abilities;
 
 namespace BlockHunt.HeroNS
 {
-    public class Hero : IGameObject, IPhysicsObject
+    public class Hero : IGameObject, IPhysicsObject, IDamageable
     {
         private readonly ContentManager content;
         private readonly HeroAnimation animation;
@@ -26,6 +26,7 @@ namespace BlockHunt.HeroNS
         public Vector2 Velocity { get; set; } = new Vector2(0, 0);
         public Rectangle CollisionBox { get; set; }
         public ICollision[] Contact { get; set; } = new ICollision[4];
+        public int Health { get; set; } = 20;
 
         public Hero(ContentManager content, IInputReader keyboard, IInputReader mouse)
         {

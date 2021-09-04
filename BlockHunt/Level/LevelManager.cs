@@ -1,4 +1,4 @@
-﻿using BlockHunt.interfaces;
+using BlockHunt.interfaces;
 using BlockHunt.Level.Background;
 using BlockHunt.Level.World;
 using Microsoft.Xna.Framework;
@@ -21,6 +21,7 @@ namespace BlockHunt.Level
         private readonly ContentManager content;
         private readonly IBlockDefinitionBuilder blockDefinitionBuilder;
         private readonly ILevelReader levelReader;
+        private readonly IPropertiesReader propertiesReader;
 
         private readonly IBackground background;
 
@@ -31,11 +32,12 @@ namespace BlockHunt.Level
         private static Dictionary<string, Texture2D> textures;
 
 
-        public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IBackground background)
+        public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IPropertiesReader propertiesReader,IBackground background)
         {
             this.content = content;
             this.blockDefinitionBuilder = blockDefinitionBuilder;
             this.levelReader = levelReader;
+            this.propertiesReader = propertiesReader;
             this.background = background;
 
             StaticCollisionBoxes = new List<ICollision> { };
@@ -43,6 +45,7 @@ namespace BlockHunt.Level
             CollisionBoxes = new List<ICollision> { };
             blockDefinitions = this.blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = this.levelReader.GetLevel();
+            this.propertiesReader.GetEnemies();
             blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
             textures = new Dictionary<string, Texture2D>();
@@ -163,6 +166,11 @@ namespace BlockHunt.Level
                             blockArray[x, y] = new Block(textures[blokName], new Vector2(y * TileSize.Y, x * TileSize.X), new Rectangle(0, 0, (int)blockDefinitions[blokName].CollisionBoxSize.X, (int)blockDefinitions[blokName].CollisionBoxSize.Y));
                             if (blockDefinitions[blokName].HasHitbox)
                                 StaticCollisionBoxes.Add(blockArray[x, y]);
+                            break;
+
+                        case 99:
+                            blokName = "portal_end";
+
                             break;
                     }
 

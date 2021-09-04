@@ -94,11 +94,11 @@ namespace BlockHunt.Physics
 
             // Expand target rectangle by source dimensions
             Vector2 objHalfSize = new Vector2(obj.CollisionBox.Size.X / 2, obj.CollisionBox.Size.Y / 2);
-            Rectangle expanded_target = new Rectangle(); ;
+            Rectangle expanded_target = new Rectangle();
             expanded_target.Location = new Point(target.CollisionBox.Location.X - obj.CollisionBox.Size.X / 2, target.CollisionBox.Location.Y - obj.CollisionBox.Size.Y / 2);
             expanded_target.Size = target.CollisionBox.Size + obj.CollisionBox.Size;
 
-            if (RayVsRect(obj.Position + objHalfSize, obj.Velocity * fElapsedTime, expanded_target, ref contact_point, ref contact_normal, ref contact_time))
+            if (RayVsRect(obj.CollisionBox.Location.ToVector2() + objHalfSize, obj.Velocity * fElapsedTime, expanded_target, ref contact_point, ref contact_normal, ref contact_time))
                 return (contact_time >= 0.0f && contact_time < 1.0f);
             else
                 return false;

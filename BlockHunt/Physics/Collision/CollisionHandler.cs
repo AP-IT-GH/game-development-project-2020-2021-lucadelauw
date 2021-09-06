@@ -51,6 +51,13 @@ namespace BlockHunt.Physics
                             LevelManager.SetLevel(LevelName.Level3);
                             break;
                     }
+
+                    if (obj is IDamageable)
+                    {
+                        var objAsDamageAble = obj as IDamageable;
+                        objAsDamageAble.Health = 0;
+                    }
+
                     break;
                 }
                 CollsionDetector.ResolveDynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, LevelManager.CollisionBoxes[j.Item1]);

@@ -31,7 +31,7 @@ namespace BlockHunt.Level.World
             this.from = from;
             this.to = to;
 
-            this.position = new Vector2(from, y);
+            this.position = new Vector2(this.from, this.y);
             this.speed = new Vector2(1.00f, 0);
 
             this.CollisionBox = new Rectangle((int)(position.X), (int)(position.Y), (int)(190 * scale), (int)(380 * scale));

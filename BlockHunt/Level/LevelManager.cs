@@ -86,7 +86,7 @@ namespace BlockHunt.Level
             blockDefinitions = blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = levelReader.GetLevel();
             enemies = propertiesReader.GetEnemies(content);
-            ConvertPortalsToTileSize();
+            portals = propertiesReader.GetPortals(content);
             blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
             textures = new Dictionary<string, Texture2D>();
@@ -97,13 +97,6 @@ namespace BlockHunt.Level
             }
 
             CreateWorld();
-        }
-
-        private static void ConvertPortalsToTileSize()
-        {
-            portals = new List<Portal>();
-            foreach (Portal portal in propertiesReader.GetPortals(content))
-                portals.Add(new Portal(new Tuple<int, int>((int)(portal.GetCoords().Item1 * TileSize.X), (int)(portal.GetCoords().Item2 * TileSize.Y)), portal.GetToLevel(), content));
         }
 
 

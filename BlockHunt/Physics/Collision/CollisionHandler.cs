@@ -1,5 +1,6 @@
 ﻿using BlockHunt.interfaces;
 using BlockHunt.Level;
+using BlockHunt.Level.World;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,10 @@ namespace BlockHunt.Physics
                         var damageAbleBox = LevelManager.CollisionBoxes[i] as IDamageable;
                         damageAbleObj.Damage(damageAbleBox.DamageToDeal);
                         damageAbleBox.Damage(damageAbleObj.DamageToDeal);
+                    }
+                    if (LevelManager.CollisionBoxes[i] is Portal)
+                    {
+                        //LevelManager.SetLevel()
                     }
                 }
             }

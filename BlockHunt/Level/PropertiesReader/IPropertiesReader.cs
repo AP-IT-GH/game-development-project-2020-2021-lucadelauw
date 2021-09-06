@@ -14,7 +14,7 @@ namespace BlockHunt.Level
         public const string LEVEL4 = "Level4";
         public const string LEVEL5 = "Level5";
 
-        void SetLevel(string file);
+        public void SetLevel(string file);
 
         public List<Enemy> GetEnemies(ContentManager content);
         public List<Portal> GetPortals(ContentManager content);

@@ -11,6 +11,12 @@ using BlockHunt.Input;
 
 namespace BlockHunt.Level
 {
+    public enum LevelName
+    {
+        Level1,
+        Level2,
+        Level3
+    }
     public class LevelManager
     {
         private static List<ICollision> StaticCollisionBoxes { get; set; }
@@ -20,44 +26,68 @@ namespace BlockHunt.Level
 
         private readonly ContentManager content;
         private readonly IBlockDefinitionBuilder blockDefinitionBuilder;
-        private readonly ILevelReader levelReader;
-        private readonly IPropertiesReader propertiesReader;
+        private static ILevelReader levelReader;
+        private static IPropertiesReader propertiesReader;
         private List<Enemy> enemies;
         private List<Portal> portals;
 
         private readonly IBackground background;
 
         private static Dictionary<string, IBlockDefinition> blockDefinitions;
-        private readonly byte[,] tileArray;
+        private byte[,] tileArray;
         private static Block[,] blockArray;
 
         private static Dictionary<string, Texture2D> textures;
 
 
-        public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IPropertiesReader propertiesReader,IBackground background)
+        public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IPropertiesReader propertiesReader,IBackground background, LevelName levelName = LevelName.Level1)
         {
             this.content = content;
             this.blockDefinitionBuilder = blockDefinitionBuilder;
-            this.levelReader = levelReader;
-            this.propertiesReader = propertiesReader;
+            LevelManager.levelReader = levelReader;
+            LevelManager.propertiesReader = propertiesReader;
             this.background = background;
 
+
+
+            SetLevel(levelName);
+
+            InitializeContent();
+        }
+
+        public static void SetLevel(LevelName level)
+        {
+            switch (level)
+            {
+                case LevelName.Level1:
+                    propertiesReader.SetLevel("Level1");
+                    levelReader.SetLevel("Level1");
+                    break;
+
+                case LevelName.Level2:
+                    propertiesReader.SetLevel("Level2");
+                    levelReader.SetLevel("Level2");
+                    break;
+
+                case LevelName.Level3:
+                    propertiesReader.SetLevel("Level3");
+                    levelReader.SetLevel("Level3");
+                    break;
+            }
+        }
+
+        private void InitializeContent()
+        {
             StaticCollisionBoxes = new List<ICollision> { };
             DynamicCollisionBoxes = new Dictionary<Tuple<int, int>, ICollision>();
             CollisionBoxes = new List<ICollision> { };
             blockDefinitions = this.blockDefinitionBuilder.GetBlockDefinitions();
-            tileArray = this.levelReader.GetLevel();
+            tileArray = levelReader.GetLevel();
             enemies = propertiesReader.GetEnemies(content);
             ConvertPortalsToTileSize();
             blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
             textures = new Dictionary<string, Texture2D>();
-
-            InitializeContent();
-        }
-
-        private void InitializeContent()
-        {
             string path = "WorldObjects/Tiles/";
             foreach (KeyValuePair<string, IBlockDefinition> blockDefinition in blockDefinitions)
             {

@@ -13,7 +13,7 @@ namespace BlockHunt.Level
         public const string LEVEL4 = "Level4";
         public const string LEVEL5 = "Level5";
 
+        public void SetLevel(string file);
         public byte[,] GetLevel();
-        void SetLevel(string file);
     }
 }

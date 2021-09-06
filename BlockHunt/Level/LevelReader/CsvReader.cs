@@ -9,17 +9,16 @@ namespace BlockHunt.Level
 {
     public class CsvReader : ILevelReader
     {
-        private string file;
-        public CsvReader(string file)
+        private string path;
+        public CsvReader()
         {
-            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            this.file = executingPath + @"\Content\World\" + file + @"\world.csv";
+          
         }
 
         public byte[,] GetLevel()
         {
             byte[,] byteField = new byte[15, 180];
-            using (TextFieldParser csvParser = new TextFieldParser(file))
+            using (TextFieldParser csvParser = new TextFieldParser(path))
             {
                 csvParser.CommentTokens = new string[] { "#" };
                 csvParser.SetDelimiters(new string[] { ";" });
@@ -41,7 +40,8 @@ namespace BlockHunt.Level
 
         public void SetLevel(string file)
         {
-            this.file = file;
+            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            path = executingPath + @"\Content\World\" + file + @"\world.csv";
         }
     }
 }

@@ -29,7 +29,7 @@ namespace BlockHunt.GameState
         {
             this.content = content;
 
-            level = new LevelManager(this.content, new Level.Definition.BlockDefinitionBuilder(), new CsvReader(ILevelReader.LEVEL1), new Level.Background.ParallaxBackground(this.content));
+            level = new LevelManager(this.content, new Level.Definition.BlockDefinitionBuilder(), new CsvReader(ILevelReader.LEVEL1), new XmlReader(), new Level.Background.ParallaxBackground(this.content));
             level.CreateWorld();
 
             camera = Camera.Instance;
@@ -50,7 +50,7 @@ namespace BlockHunt.GameState
                 }
             }
             hero.Update(gameTime);
-            level.Update();
+            level.Update(gameTime);
             hud.Update(gameTime);
             camera.MoveTo(-hero.Position.X);
             viewMatrix = camera.GetTransform();

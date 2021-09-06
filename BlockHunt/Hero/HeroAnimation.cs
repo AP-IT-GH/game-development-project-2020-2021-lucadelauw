@@ -42,10 +42,10 @@ namespace BlockHunt.HeroNS
             frames_dead = new List<AnimationFrame>();
 
 
-            InitzializeConent();
+            InitzializeContent();
         }
 
-        private void InitzializeConent()
+        private void InitzializeContent()
         {
             frames_idle.Add(new AnimationFrame(content.Load<Texture2D>("Hero/Idle__001")));
             frames_idle.Add(new AnimationFrame(content.Load<Texture2D>("Hero/Idle__002")));

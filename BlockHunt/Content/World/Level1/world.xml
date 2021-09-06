@@ -10,9 +10,9 @@
   <enemies>
     <enemy>
       <position>
-        <y></y>
-        <from></from>
-        <to></to>
+        <y>10</y>
+        <from>2</from>
+        <to>10</to>
       </position>
     </enemy>
   </enemies>

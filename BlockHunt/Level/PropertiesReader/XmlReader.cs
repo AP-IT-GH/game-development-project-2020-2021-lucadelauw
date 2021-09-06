@@ -1,6 +1,10 @@
-﻿using System;
+﻿using BlockHunt.Level.World;
+using Microsoft.Xna.Framework.Content;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 
@@ -26,14 +30,27 @@ namespace BlockHunt.Level
             throw new NotImplementedException();
         }
 
-        public void GetEnemies()
+        public List<Enemy> GetEnemies(ContentManager content)
         {
-            var xml = XDocument.Load(@"C:\contacts.xml");
+            string file = LEVEL1;
+            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            this.file = executingPath + @"\Content\World\" + file + @"\world.xml";
 
-            var query = from c in xml.Root.Descendants("enemies")
-                        select c.Element("position").Value;
+            var xml = XDocument.Load(this.file);
 
-            Console.WriteLine(query.ToString());
+            List<Enemy> enemies = new List<Enemy>();
+
+            foreach (var element in xml.Root.Element("enemies").Elements())
+            {
+                var position = element.Element("position");
+                var y = Int32.Parse(position.Element("y").Value);
+                var from = Int32.Parse(position.Element("from").Value);
+                var to = Int32.Parse(position.Element("to").Value);
+
+                enemies.Add(new Enemy(y, from, to, content));
+            }
+
+            return enemies;
         }
 
         public void GetPortal()

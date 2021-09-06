@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlockHunt.Level.World;
+using Microsoft.Xna.Framework.Content;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +16,7 @@ namespace BlockHunt.Level
 
         void SetLevel(string file);
 
-        public void GetEnemies();
+        public List<Enemy> GetEnemies(ContentManager content);
         public void GetBlocks();
         public void GetPortal();
     }

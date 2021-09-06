@@ -22,6 +22,7 @@ namespace BlockHunt.Level
         private readonly IBlockDefinitionBuilder blockDefinitionBuilder;
         private readonly ILevelReader levelReader;
         private readonly IPropertiesReader propertiesReader;
+        private List<Enemy> enemies;
 
         private readonly IBackground background;
 
@@ -45,7 +46,7 @@ namespace BlockHunt.Level
             CollisionBoxes = new List<ICollision> { };
             blockDefinitions = this.blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = this.levelReader.GetLevel();
-            this.propertiesReader.GetEnemies();
+            enemies = propertiesReader.GetEnemies(content);
             blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
             textures = new Dictionary<string, Texture2D>();
@@ -178,9 +179,10 @@ namespace BlockHunt.Level
             }
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             background.Update();
+            enemies.ForEach(e => e.Update(gameTime));
 
             CollisionBoxes = new List<ICollision>();
             CollisionBoxes.AddRange(StaticCollisionBoxes);
@@ -201,6 +203,9 @@ namespace BlockHunt.Level
                     }
                 }
             }
+
+            enemies.ForEach(e => e.Draw(spritebatch));
+
 
         }
 

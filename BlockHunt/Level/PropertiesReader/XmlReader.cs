@@ -14,17 +14,12 @@ namespace BlockHunt.Level
     {
         private string file;
 
-        public const string LEVEL1 = "Level1";
-        public const string LEVEL2 = "Level2";
-        public const string LEVEL3 = "Level3";
-        public const string LEVEL4 = "Level4";
-        public const string LEVEL5 = "Level5";
-
         private const int Yoffset = 28;
 
         public void SetLevel(string file)
         {
-            this.file = file;
+            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            this.file = executingPath + @"\Content\World\" + file + @"\world.xml";
         }
 
         public void GetBlocks()
@@ -34,10 +29,6 @@ namespace BlockHunt.Level
 
         public List<Enemy> GetEnemies(ContentManager content)
         {
-            string file = LEVEL1;
-            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            this.file = executingPath + @"\Content\World\" + file + @"\world.xml";
-
             var xml = XDocument.Load(this.file);
 
             List<Enemy> enemies = new List<Enemy>();
@@ -57,10 +48,6 @@ namespace BlockHunt.Level
 
         public List<Portal> GetPortals(ContentManager content)
         {
-            string file = LEVEL1;
-            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            this.file = executingPath + @"\Content\World\" + file + @"\world.xml";
-
             var xml = XDocument.Load(this.file);
 
             List<Portal> portals = new List<Portal>();

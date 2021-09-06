@@ -40,7 +40,7 @@ namespace BlockHunt.Level
         private static Dictionary<string, Texture2D> textures;
 
 
-        public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IPropertiesReader propertiesReader,IBackground background, LevelName levelName = LevelName.Level1)
+        public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IPropertiesReader propertiesReader,IBackground background, LevelName levelName = LevelName.Level2)
         {
             LevelManager.content = content;
             LevelManager.blockDefinitionBuilder = blockDefinitionBuilder;

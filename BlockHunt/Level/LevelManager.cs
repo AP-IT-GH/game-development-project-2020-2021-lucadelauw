@@ -23,6 +23,7 @@ namespace BlockHunt.Level
         private readonly ILevelReader levelReader;
         private readonly IPropertiesReader propertiesReader;
         private List<Enemy> enemies;
+        private List<Portal> portals;
 
         private readonly IBackground background;
 
@@ -47,6 +48,7 @@ namespace BlockHunt.Level
             blockDefinitions = this.blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = this.levelReader.GetLevel();
             enemies = propertiesReader.GetEnemies(content);
+            ConvertPortalsToTileSize();
             blockArray = new Block[tileArray.GetLength(0), tileArray.GetLength(1)];
 
             textures = new Dictionary<string, Texture2D>();
@@ -61,6 +63,13 @@ namespace BlockHunt.Level
             {
                 textures.Add(blockDefinition.Key, content.Load<Texture2D>(path + blockDefinition.Value.File));
             }
+        }
+
+        private void ConvertPortalsToTileSize()
+        {
+            portals = new List<Portal>();
+            foreach (Portal portal in propertiesReader.GetPortals(content))
+                portals.Add(new Portal(new Tuple<int, int>((int)(portal.GetCoords().Item1 * TileSize.X), (int)(portal.GetCoords().Item2 * TileSize.Y)), portal.GetToLevel(), content));
         }
 
 
@@ -183,10 +192,12 @@ namespace BlockHunt.Level
         {
             background.Update();
             enemies.ForEach(e => e.Update(gameTime));
+            portals.ForEach(p => p.Update(gameTime));
 
             CollisionBoxes = new List<ICollision>();
             CollisionBoxes.AddRange(StaticCollisionBoxes);
             enemies.ForEach(e => CollisionBoxes.Add(e));
+            portals.ForEach(p => CollisionBoxes.Add(p));
             foreach (KeyValuePair<Tuple<int,int>,ICollision> keyValuePair in DynamicCollisionBoxes)
                 CollisionBoxes.Add(keyValuePair.Value);
         }
@@ -205,6 +216,7 @@ namespace BlockHunt.Level
                 }
             }
 
+            portals.ForEach(p => p.Draw(spritebatch));
             enemies.ForEach(e => e.Draw(spritebatch));
         }
 

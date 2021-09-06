@@ -53,9 +53,27 @@ namespace BlockHunt.Level
             return enemies;
         }
 
-        public void GetPortal()
+        public List<Portal> GetPortals(ContentManager content)
         {
-            throw new NotImplementedException();
+            string file = LEVEL1;
+            string executingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            this.file = executingPath + @"\Content\World\" + file + @"\world.xml";
+
+            var xml = XDocument.Load(this.file);
+
+            List<Portal> portals = new List<Portal>();
+
+            foreach (var element in xml.Root.Element("portals").Elements())
+            {
+                var position = element.Element("position");
+                var x = Int32.Parse(position.Element("x").Value);
+                var y = Int32.Parse(position.Element("y").Value);
+                var toLevel = element.Element("to").Value;
+                
+                portals.Add(new Portal(new Tuple<int, int>(x, y), toLevel, content));
+            }
+
+            return portals;
         }
 
     }

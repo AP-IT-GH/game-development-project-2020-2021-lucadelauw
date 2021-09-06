@@ -17,7 +17,6 @@ namespace BlockHunt.Level
         void SetLevel(string file);
 
         public List<Enemy> GetEnemies(ContentManager content);
-        public void GetBlocks();
-        public void GetPortal();
+        public List<Portal> GetPortals(ContentManager content);
     }
 }

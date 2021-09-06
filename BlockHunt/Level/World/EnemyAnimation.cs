@@ -59,7 +59,7 @@ namespace BlockHunt.Level.World
         {
             CurrentFrame = frames[counter];
 
-            if (gameTime.TotalGameTime.TotalMilliseconds > (1000 / 12) + lastTime)
+            if (gameTime.TotalGameTime.TotalMilliseconds > (1000 / 5) + lastTime)
             {
                 counter++;
                 lastTime = gameTime.TotalGameTime.TotalMilliseconds;

@@ -24,17 +24,17 @@ namespace BlockHunt.Level
         public static List<ICollision> CollisionBoxes { get; private set; }
         public static Vector2 TileSize { get; set; } = new Vector2(70, 70);
 
-        private readonly ContentManager content;
-        private readonly IBlockDefinitionBuilder blockDefinitionBuilder;
+        private static ContentManager content;
+        private static IBlockDefinitionBuilder blockDefinitionBuilder;
         private static ILevelReader levelReader;
         private static IPropertiesReader propertiesReader;
-        private List<Enemy> enemies;
-        private List<Portal> portals;
+        private static List<Enemy> enemies;
+        private static List<Portal> portals;
 
-        private readonly IBackground background;
+        private static IBackground background;
 
         private static Dictionary<string, IBlockDefinition> blockDefinitions;
-        private byte[,] tileArray;
+        private static byte[,] tileArray;
         private static Block[,] blockArray;
 
         private static Dictionary<string, Texture2D> textures;
@@ -42,11 +42,11 @@ namespace BlockHunt.Level
 
         public LevelManager(ContentManager content, IBlockDefinitionBuilder blockDefinitionBuilder, ILevelReader levelReader, IPropertiesReader propertiesReader,IBackground background, LevelName levelName = LevelName.Level1)
         {
-            this.content = content;
-            this.blockDefinitionBuilder = blockDefinitionBuilder;
+            LevelManager.content = content;
+            LevelManager.blockDefinitionBuilder = blockDefinitionBuilder;
             LevelManager.levelReader = levelReader;
             LevelManager.propertiesReader = propertiesReader;
-            this.background = background;
+            LevelManager.background = background;
 
 
 
@@ -74,14 +74,16 @@ namespace BlockHunt.Level
                     levelReader.SetLevel("Level3");
                     break;
             }
+
+            InitializeContent();
         }
 
-        private void InitializeContent()
+        private static void InitializeContent()
         {
             StaticCollisionBoxes = new List<ICollision> { };
             DynamicCollisionBoxes = new Dictionary<Tuple<int, int>, ICollision>();
             CollisionBoxes = new List<ICollision> { };
-            blockDefinitions = this.blockDefinitionBuilder.GetBlockDefinitions();
+            blockDefinitions = blockDefinitionBuilder.GetBlockDefinitions();
             tileArray = levelReader.GetLevel();
             enemies = propertiesReader.GetEnemies(content);
             ConvertPortalsToTileSize();
@@ -93,9 +95,11 @@ namespace BlockHunt.Level
             {
                 textures.Add(blockDefinition.Key, content.Load<Texture2D>(path + blockDefinition.Value.File));
             }
+
+            CreateWorld();
         }
 
-        private void ConvertPortalsToTileSize()
+        private static void ConvertPortalsToTileSize()
         {
             portals = new List<Portal>();
             foreach (Portal portal in propertiesReader.GetPortals(content))
@@ -104,7 +108,7 @@ namespace BlockHunt.Level
 
 
 
-        public void CreateWorld()
+        public static void CreateWorld()
         {
             for (int x = 0; x < tileArray.GetLength(0); x++)
             {

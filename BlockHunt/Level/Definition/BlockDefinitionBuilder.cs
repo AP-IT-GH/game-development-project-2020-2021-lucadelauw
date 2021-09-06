@@ -14,7 +14,8 @@ namespace BlockHunt.Level.Definition
         }
         public Dictionary<string, IBlockDefinition> GetBlockDefinitions()
         {
-            CreateDefinitions();
+            if (definitions.Count == 0)
+                CreateDefinitions();
             return definitions;
         }
 

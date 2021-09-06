@@ -15,15 +15,17 @@ namespace BlockHunt.Level.World
         private Tuple<int, int> coords;
         private readonly float scale = 0.15f;
 
+        public Rectangle CollisionBox { get; set; }
+
         public Portal(Tuple<int,int> coords, string toLevel, ContentManager content)
         {
             this.texture = content.Load<Texture2D>("WorldObjects/portal");
 
             this.coords = coords;
             this.toLevel = toLevel;
-        }
 
-        public Rectangle CollisionBox { get; set; }
+            CollisionBox = new Rectangle(coords.Item1, coords.Item2, (int)(806 * scale), (int)(990 * scale));
+        }
 
         public Tuple<int,int> GetCoords()
         {

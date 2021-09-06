@@ -30,7 +30,6 @@ namespace BlockHunt.GameState
             this.content = content;
 
             level = new LevelManager(this.content, new Level.Definition.BlockDefinitionBuilder(), new CsvReader(), new XmlReader(), new Level.Background.ParallaxBackground(this.content));
-            level.CreateWorld();
 
             camera = Camera.Instance;
 

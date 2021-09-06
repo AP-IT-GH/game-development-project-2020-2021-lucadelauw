@@ -29,10 +29,6 @@ namespace BlockHunt.Physics
                         damageAbleObj.Damage(damageAbleBox.DamageToDeal);
                         damageAbleBox.Damage(damageAbleObj.DamageToDeal);
                     }
-                    if (LevelManager.CollisionBoxes[i] is Portal)
-                    {
-                        //LevelManager.SetLevel()
-                    }
                 }
             }
 
@@ -40,6 +36,23 @@ namespace BlockHunt.Physics
 
             foreach (Tuple<int, float> j in z)
             {
+                if (LevelManager.CollisionBoxes[j.Item1] is Portal)
+                {
+                    var portal = LevelManager.CollisionBoxes[j.Item1] as Portal;
+                    switch (portal.GetToLevel())
+                    {
+                        case "Level1":
+                            LevelManager.SetLevel(LevelName.Level1);
+                            break;
+                        case "Level2":
+                            LevelManager.SetLevel(LevelName.Level2);
+                            break;
+                        case "Level3":
+                            LevelManager.SetLevel(LevelName.Level3);
+                            break;
+                    }
+                    break;
+                }
                 CollsionDetector.ResolveDynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, LevelManager.CollisionBoxes[j.Item1]);
             }
 

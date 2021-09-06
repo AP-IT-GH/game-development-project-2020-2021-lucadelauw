@@ -13,6 +13,12 @@ namespace BlockHunt.Commands
         {
             transform.Position = resetPosition;
             transform.Velocity = Vector2.Zero;
+
+            if (transform is IDamageable)
+            {
+                var transformDamageAble = transform as IDamageable;
+                transformDamageAble.Health = 20;
+            }
         }
     }
 }

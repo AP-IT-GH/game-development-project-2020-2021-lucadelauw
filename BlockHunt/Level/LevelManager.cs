@@ -186,6 +186,7 @@ namespace BlockHunt.Level
 
             CollisionBoxes = new List<ICollision>();
             CollisionBoxes.AddRange(StaticCollisionBoxes);
+            enemies.ForEach(e => CollisionBoxes.Add(e));
             foreach (KeyValuePair<Tuple<int,int>,ICollision> keyValuePair in DynamicCollisionBoxes)
                 CollisionBoxes.Add(keyValuePair.Value);
         }
@@ -205,8 +206,6 @@ namespace BlockHunt.Level
             }
 
             enemies.ForEach(e => e.Draw(spritebatch));
-
-
         }
 
         public static bool PlaceBlock()
@@ -232,7 +231,7 @@ namespace BlockHunt.Level
                 if (blockArray[index1, index2]._texture == textures["dynamic"])
                 {
                     blockArray[index1, index2] = null;
-                    System.Diagnostics.Debug.WriteIf(DynamicCollisionBoxes.Remove(new Tuple<int, int>(index1, index2)), "HERE");
+                    DynamicCollisionBoxes.Remove(new Tuple<int, int>(index1, index2));
                     return true;
                 }
             return false;

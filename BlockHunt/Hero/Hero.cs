@@ -27,6 +27,7 @@ namespace BlockHunt.HeroNS
         public Rectangle CollisionBox { get; set; }
         public ICollision[] Contact { get; set; } = new ICollision[4];
         public int Health { get; set; } = 20;
+        public int DamageToDeal { get; set; } = 0;
 
         public Hero(ContentManager content, IInputReader keyboard, IInputReader mouse)
         {
@@ -90,12 +91,20 @@ namespace BlockHunt.HeroNS
             if (Position.Y > 2000)
                 new ResetCommand().Execute(this);
 
+            if (Health <= 0)
+                new ResetCommand().Execute(this);
+
             animation.Update(gameTime, Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch, Scale);
+        }
+
+        public void Damage(int damage)
+        {
+            this.Health -= damage;
         }
     }
 }

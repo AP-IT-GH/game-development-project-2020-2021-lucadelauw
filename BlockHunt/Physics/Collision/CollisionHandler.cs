@@ -21,6 +21,13 @@ namespace BlockHunt.Physics
                 if (CollsionDetector.DynamicRectVsRect(obj, (float)gameTime.ElapsedGameTime.TotalSeconds, LevelManager.CollisionBoxes[i], ref cp, ref cn, ref ct))
                 {
                     z.Add(new Tuple<int, float>(i, ct));
+                    if (LevelManager.CollisionBoxes[i] is IDamageable && obj is IDamageable)
+                    {
+                        var damageAbleObj = obj as IDamageable;
+                        var damageAbleBox = LevelManager.CollisionBoxes[i] as IDamageable;
+                        damageAbleObj.Damage(damageAbleBox.DamageToDeal);
+                        damageAbleBox.Damage(damageAbleObj.DamageToDeal);
+                    }
                 }
             }
 

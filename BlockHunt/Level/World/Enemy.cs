@@ -19,8 +19,9 @@ namespace BlockHunt.Level.World
 
         private readonly float scale = 0.30f;
 
-        public int Health { get; set; }
+        public int Health { get; set; } = 100;
         public Rectangle CollisionBox { get; set; }
+        public int DamageToDeal { get; set; } = 100;
 
         private EnemyAnimation animation;
 
@@ -33,6 +34,8 @@ namespace BlockHunt.Level.World
             this.position = new Vector2(from, y);
             this.speed = new Vector2(1.00f, 0);
 
+            this.CollisionBox = new Rectangle((int)(position.X), (int)(position.Y), (int)(190 * scale), (int)(380 * scale));
+
             this.animation = new EnemyAnimation(content);
         }
 
@@ -44,6 +47,8 @@ namespace BlockHunt.Level.World
             {
                 speed = new Vector2(-speed.X, speed.Y);
             }
+            
+            CollisionBox = new Rectangle((int)(position.X), (int)(position.Y), (int)(190 * scale), (int)(380 * scale));
 
             animation.Update(gameTime, position);
         }
@@ -51,6 +56,11 @@ namespace BlockHunt.Level.World
         public void Draw(SpriteBatch spriteBatch)
         {
             animation.Draw(spriteBatch, scale);
+        }
+
+        public void Damage(int damage)
+        {
+            this.Health -= damage;
         }
     }
 }
